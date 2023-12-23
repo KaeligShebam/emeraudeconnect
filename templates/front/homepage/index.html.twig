@@ -1,7 +1,9 @@
-{% extends "base.html.twig" %}
+{% extends "/base.html.twig" %}
 
 {% block title %}Accueil {{ parent() }}{% endblock %}
 
-{% block content %}
-    test
+{% block body %}
+    {% block content %}
+        <p class="text-white">Test</p>
+    {% endblock %}
 {% endblock %}
