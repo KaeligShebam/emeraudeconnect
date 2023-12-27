@@ -4,16 +4,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{% block title %}- Emeraude connect{% endblock %}</title>
-        <link rel="icon" href="{{ asset('assets/images/favicon-emeraude-connect.svg')}}">
+        
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('assets/css/front/main.css') }}">
             <link rel="stylesheet" href="{{ asset('assets/css/front/responsive.css') }}">
             <link rel="stylesheet" href="{{ asset('assets/css/root.css') }}">
+
             {{ ux_controller_link_tags() }}
         {% endblock %}
 
         {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
+
         {% endblock %}
     </head>
     <body>
