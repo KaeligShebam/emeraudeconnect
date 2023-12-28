@@ -5,11 +5,14 @@ namespace App\Form\Front\Auth\Register;
 use App\Entity\Team;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Unique;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class TeamRegisterType extends AbstractType
 {
@@ -35,7 +38,8 @@ class TeamRegisterType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Email',
                     'class' => 'form-input'
-                ]
+                ],
+
             ])
             ->add('password', passwordType::class,[
                 'label' => false,

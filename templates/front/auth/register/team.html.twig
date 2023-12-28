@@ -8,6 +8,11 @@
     <div class="form-container">
     <h1 class="text-center">Inscription</h1>
     <div class="separator-center"></div>
+{% if successMessage is not null %}
+    <div class="success-alert-message">
+        {{ successMessage }}
+    </div>
+{% endif %}
     {{ form_start(form) }}
         {{ form_row(form.firstname) }}
         {{ form_row(form.lastname) }}
