@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% block content %}
+
+        <div class="form-container">
+        {% if error %}
+            <div class="error-message-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form action="{{ path('app_login') }}" method="post">
+
+            <input class="form-input" type="text" id="email" name="_email" placeholder="Email" value="{{ last_username }}">
+
+            <input class="form-input" type="password" id="password" placeholder="Mot de passe"name="_password">
+
+            
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="form-button" type="submit">Connexion</button>
+        </form>
+        </div>
+    {% endblock %}
+{% endblock %}

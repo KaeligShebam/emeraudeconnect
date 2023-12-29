@@ -19,20 +19,7 @@ class TeamRegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lastname', TextType::class,[
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom de famille',
-                    'class' => 'form-input'
-                ]
-            ])
-            ->add('firstname', TextType::class,[
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Prénom',
-                    'class' => 'form-input'
-                ]
-            ])
+
             ->add('email', EmailType::class,[
                 'label' => false,
                 'attr' => [

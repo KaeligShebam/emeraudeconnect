@@ -1,13 +1,11 @@
 security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-        App\Entity\Team:
-            algorithm: bcrypt
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'bcrypt'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
-        team_provider:
+        app_user_provider:
             entity:
                 class: App\Entity\Team
                 property: email
@@ -16,10 +14,15 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            provider: team_provider
+            provider: app_user_provider
             form_login:
                 login_path: app_login
                 check_path: app_login
+                username_parameter: '_email'
+                enable_csrf: true
+                csrf_token_id: 'authenticate'
+                csrf_parameter: '_csrf_token'
+                
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

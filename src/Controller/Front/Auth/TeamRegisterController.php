@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\Front\Auth\Register\TeamRegisterType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class TeamRegisterController extends AbstractController
 
@@ -22,16 +23,22 @@ class TeamRegisterController extends AbstractController
     }
 
     #[Route('/authentification/equipe/inscription', name: 'register_team', methods: ['GET', 'POST'])]
-    public function register(Request $request, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $team = new Team();
+        $plaintextPassword = "";
         $form = $this->createForm(TeamRegisterType::class, $team);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $team->setPassword('plain_password');
             $team->setRoles(['ROLE_ADMIN']);
+            
+            $hashedPassword = $passwordHasher->hashPassword(
+                $team,
+                $form->get('password')->getData()
+            );
+            $team->setPassword($hashedPassword);
             $entityManager->persist($team);
             $entityManager->flush();
 
@@ -39,7 +46,7 @@ class TeamRegisterController extends AbstractController
         } else {
             $successMessage = null;
         }
-        return $this->render('/front/auth/register/team.html.twig', [
+        return $this->render('/front/auth/register/index.html.twig', [
             'form' => $form->createView(),
             'successMessage' => $successMessage
         ]);
