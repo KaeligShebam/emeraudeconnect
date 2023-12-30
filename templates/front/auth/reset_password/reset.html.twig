@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitaliser votre mot de passe {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% block content %}
+    <div class="form-container">
+        <h1 class="text-center">Réinitaliser le mot passe</h1>
+        <div class="separator-center"></div>
+
+        {{ form_start(resetForm) }}
+            {{ form_row(resetForm.plainPassword) }}
+            {{ form_row(resetForm.submit) }}
+        {{ form_end(resetForm) }}
+    </div>
+    {% endblock %}
+{% endblock %}

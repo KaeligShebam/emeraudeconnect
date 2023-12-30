@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mot de passe oublié {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="form-container">
+            {% for flash_error in app.flashes('reset_password_error') %}
+                <div class="error-message-warning" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+
+            <h1 class="text-center">Mot de passe oublié</h1>
+            <div class="separator-center"></div>
+
+            {{ form_start(requestForm) }}
+            {{ form_row(requestForm.email) }}
+
+            {{ form_end(requestForm) }}
+        </div>
+    {% endblock %}
+{% endblock %}

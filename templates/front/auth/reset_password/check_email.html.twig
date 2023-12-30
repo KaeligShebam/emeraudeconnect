@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vérification email {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="form-container">
+            <h1 class="text-center">Vérification Email</h1>
+            <div class="separator-center"></div>
+            <p> S'il existe un compte correspondant à votre adresse e-mail, un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
+            Ce lien expirera dans{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+            </p>
+            <p>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+        </div>
+    {% endblock %}
+{% endblock %}
