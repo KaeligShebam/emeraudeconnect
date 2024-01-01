@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('assets/css/back/main.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/back/responsive.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/root.css') }}">
+
+            {{ ux_controller_link_tags() }}
+        {% endblock %}
+    <title>{% block title %} - Admin - Emeraude Connect{% endblock %}</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="{{ path('admin') }}"><img src=""></a>
+    <ul>
+      <li class="">
+        <a class="" href="{{ path('admin') }}">Tableau de Bord</a>
+      </li>
+    </ul>
+
+    <ul>
+      <p class="title">Utilisateurs</p>
+      <li class="">
+        <a class="" href="">Liste</a>
+      </li>
+    </ul>
+  </div>
+
+  <div id="general">
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+  </div>
+</body>
+
+</html>
