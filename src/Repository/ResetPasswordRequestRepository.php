@@ -26,8 +26,40 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
         parent::__construct($registry, ResetPasswordRequest::class);
     }
 
-    public function createResetPasswordRequest(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken): ResetPasswordRequestInterface
+    public function createResetPasswordRequest(object $user,\DateTimeInterface $expiresAt,string $selector,string $hashedToken
+    ): ResetPasswordRequestInterface {
+        return new ResetPasswordRequest($user,$expiresAt,$selector, $hashedToken
+        );
+    }
+    
+    public function getMostRecentNonExpiredRequestDate(object $user): ?\DateTimeInterface
     {
-        return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
+        // Normally there is only 1 max request per use, but written to be flexible
+        /** @var ResetPasswordRequestInterface $resetPasswordRequest */
+        $resetPasswordRequest = $this->createQueryBuilder('t')
+            ->where('t.user = :user OR t.team = :user')
+            ->setParameter('user', $user)
+            ->orderBy('t.requestedAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneorNullResult()
+        ;
+
+        if (null !== $resetPasswordRequest && !$resetPasswordRequest->isExpired()) {
+            return $resetPasswordRequest->getRequestedAt();
+        }
+
+        return null;
+    }
+    
+    public function removeResetPasswordRequest(ResetPasswordRequestInterface $resetPasswordRequest): void
+    {
+        $this->createQueryBuilder('t')
+            ->delete()
+            ->where('t.user = :user OR t.team = :user')
+            ->setParameter('user', $resetPasswordRequest->getUser())
+            ->getQuery()
+            ->execute()
+        ;
     }
 }
