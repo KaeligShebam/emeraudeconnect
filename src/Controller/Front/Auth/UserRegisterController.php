@@ -2,17 +2,17 @@
 
 namespace App\Controller\Front\Auth;
 
-use App\Entity\Team;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\Front\Auth\Register\TeamRegisterType;
+use App\Form\Front\Auth\Register\UserRegisterType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class TeamRegisterController extends AbstractController
+class UserRegisterController extends AbstractController
 
 {
     private $translator;
@@ -22,30 +22,30 @@ class TeamRegisterController extends AbstractController
         $this->translator = $translator;
     }
 
-    #[Route('/authentification/equipe/inscription', name: 'register_team', methods: ['GET', 'POST'])]
+    #[Route('/authentification/inscription', name: 'register_user', methods: ['GET', 'POST'])]
     public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $team = new Team();
-        $form = $this->createForm(TeamRegisterType::class, $team);
+        $user = new User();
+        $form = $this->createForm(UserRegisterType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $team->setRoles(['ROLE_ADMIN']);
+            $user->setRoles(['ROLE_USER']);
             
             $hashedPassword = $passwordHasher->hashPassword(
-                $team,
+                $user,
                 $form->get('password')->getData()
             );
-            $team->setPassword($hashedPassword);
-            $entityManager->persist($team);
+            $user->setPassword($hashedPassword);
+            $entityManager->persist($user);
             $entityManager->flush();
 
-            $successMessage = $this->translator->trans('success_message', [], 'validators');
+            $successMessage = $this->translator->trans('success_message_register_user', [], 'validators');
         } else {
             $successMessage = null;
         }
-        return $this->render('/front/auth/register/team.html.twig', [
+        return $this->render('/front/auth/register/user.html.twig', [
             'form' => $form->createView(),
             'successMessage' => $successMessage
         ]);

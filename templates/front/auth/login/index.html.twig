@@ -11,17 +11,12 @@
             {% if error %}
                 <div class="error-message-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-            <form action="{{ path('app_login') }}" method="post">
-
-                <input class="form-input" type="text" id="email" name="_email" placeholder="Email" value="{{ last_username }}">
-
-                <input class="form-input" type="password" id="password" placeholder="Mot de passe"name="_password">
-
-                
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                <button class="form-button" type="submit">Connexion</button>
-            </form>
+    {{ form_start(form) }}
+    {{ form_row(form._email) }}
+    {{ form_row(form._password) }}
+    {{ form_row(form._remember_me) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
         </div>
     {% endblock %}
 {% endblock %}

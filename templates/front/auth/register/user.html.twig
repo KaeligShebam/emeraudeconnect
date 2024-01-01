@@ -1,7 +1,6 @@
-{# templates/team/register.html.twig #}
 
 {% extends 'base.html.twig' %}
-{% block title %}Inscription Équipe {{ parent() }}{% endblock %}
+{% block title %}Inscription {{ parent() }}{% endblock %}
 
 {% block body %}
     
@@ -14,6 +13,8 @@
     </div>
 {% endif %}
     {{ form_start(form) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.firstname) }}
         {{ form_row(form.email) }}
         {{ form_row(form.password) }}
         {{ form_row(form.submit) }}

@@ -2,15 +2,16 @@
 
 namespace App\Form\Front\Auth\Register;
 
-use App\Entity\Team;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class TeamRegisterType extends AbstractType
+class UserRegisterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -20,6 +21,22 @@ class TeamRegisterType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Email',
+                    'class' => 'form-input'
+                ],
+
+            ])
+            ->add('lastname', TextType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Nom',
+                    'class' => 'form-input'
+                ],
+
+            ])
+            ->add('firstname', TextType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Prénom',
                     'class' => 'form-input'
                 ],
 
@@ -41,7 +58,7 @@ class TeamRegisterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Team::class,
+            'data_class' => User::class,
         ]);
     }
 }
