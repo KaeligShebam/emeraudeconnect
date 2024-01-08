@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\Front\Auth\Register\UserRegisterType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserRegisterController extends AbstractController
@@ -23,8 +24,13 @@ class UserRegisterController extends AbstractController
     }
 
     #[Route('/authentification/inscription', name: 'register_user', methods: ['GET', 'POST'])]
-    public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function register(Security $security, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
+
+        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('homepage');
+        }
+
         $user = new User();
         $form = $this->createForm(UserRegisterType::class, $user);
 

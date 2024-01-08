@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\Front\Auth\Register\TeamRegisterType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class TeamRegisterController extends AbstractController
@@ -23,8 +24,13 @@ class TeamRegisterController extends AbstractController
     }
 
     #[Route('/authentification/equipe/inscription', name: 'register_team', methods: ['GET', 'POST'])]
-    public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function register(Security $security, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
+
+        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('homepage');
+        }
+        
         $team = new Team();
         $form = $this->createForm(TeamRegisterType::class, $team);
 
