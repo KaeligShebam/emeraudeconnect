@@ -32,6 +32,9 @@ security:
             logout:
                 path: app_logout
                 target: homepage
+            login_throttling:
+                max_attempts: 5
+                interval: '1 minute'
                 
 
             # activate different ways to authenticate

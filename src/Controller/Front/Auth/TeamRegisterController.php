@@ -30,7 +30,6 @@ class TeamRegisterController extends AbstractController
         if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('homepage');
         }
-        
         $team = new Team();
         $form = $this->createForm(TeamRegisterType::class, $team);
 

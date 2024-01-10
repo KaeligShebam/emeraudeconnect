@@ -8,7 +8,7 @@
 
             {{ ux_controller_link_tags() }}
         {% endblock %}
-    <title>{% block title %} - Admin - Emeraude Connect{% endblock %}</title>
+    <title>{% block title %}Tableau de bord - Admin - Emeraude Connect{% endblock %}</title>
 </head>
 
 <body>
@@ -31,6 +31,7 @@
   <div id="general">
     <div class="content">
         {% block content %}{% endblock %}
+        {% block javascripts %}{% endblock %}
     </div>
   </div>
 </body>
