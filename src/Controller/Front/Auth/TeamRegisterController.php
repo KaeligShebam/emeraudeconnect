@@ -23,7 +23,7 @@ class TeamRegisterController extends AbstractController
         $this->translator = $translator;
     }
 
-    #[Route('/authentification/equipe/inscription', name: 'register_team', methods: ['GET', 'POST'])]
+    #[Route('/authentification/inscription/equipe', name: 'register_team', methods: ['GET', 'POST'])]
     public function register(Security $security, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
 

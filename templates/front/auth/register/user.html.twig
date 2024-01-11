@@ -18,19 +18,19 @@
         {{ form_row(form.email) }}
         {{ form_row(form.password, {'attr': {'id': 'password'}}) }}
         {{ form_row(form.submit) }}
-    <div id="uppercase-message" style="margin-top: 5px; font-size: 14px;">
-        <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
-            Le mot de passe doit contenir au moins une lettre majuscule.
-        </span><br>
+        <div id="uppercase-message" style="margin-top: 5px; font-size: 14px;">
+            <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
+                Le mot de passe doit contenir au moins une lettre majuscule.
+            </span><br>
 
-        <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
-            Le mot de passe doit contenir au moins une lettre minuscule.
-        </span><br>
+            <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
+                Le mot de passe doit contenir au moins une lettre minuscule.
+            </span><br>
 
-        <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
-            Le mot de passe doit contenir au moins un chiffre.
-        </span><br>
-    </div>
+            <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
+                Le mot de passe doit contenir au moins un chiffre.
+            </span><br>
+        </div>
     {{ form_end(form) }}
     </div>
 {% endblock %}
@@ -78,12 +78,4 @@
         }
     });
 </script>
-
-
-
-
-
-
-
-
 {% endblock %}

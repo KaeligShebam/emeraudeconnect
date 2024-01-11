@@ -15,8 +15,65 @@
 {% endif %}
     {{ form_start(form) }}
         {{ form_row(form.email) }}
-        {{ form_row(form.password) }}
+        {{ form_row(form.password, {'attr': {'id': 'password'}}) }}
         {{ form_row(form.submit) }}
+        <div id="uppercase-message" style="margin-top: 5px; font-size: 14px;">
+            <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
+                Le mot de passe doit contenir au moins une lettre majuscule.
+            </span><br>
+
+            <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
+                Le mot de passe doit contenir au moins une lettre minuscule.
+            </span><br>
+
+            <span style="color: {{ form.password.vars.errors|length == 0 ? 'gray' : 'red' }};">
+                Le mot de passe doit contenir au moins un chiffre.
+            </span><br>
+        </div>
     {{ form_end(form) }}
     </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var passwordInput = document.getElementById('team_register_password');
+        var uppercaseMessage = document.getElementById('uppercase-message');
+        var submitButton = document.getElementById('team_register_submit');
+
+        // Désactiver le bouton de soumission au chargement de la page
+        submitButton.disabled = true;
+        submitButton.classList.add('form-button-disabled');
+        submitButton.classList.remove('form-button');
+        submitButton.style.cursor = 'not-allowed';
+
+        passwordInput.addEventListener('input', function () {
+            var password = passwordInput.value;
+
+            // Vérifier si le mot de passe répond aux critères
+            var hasUppercase = /[A-Z]/.test(password);
+            var hasLowercase = /[a-z]/.test(password);
+            var hasDigit = /\d/.test(password);
+
+            // Mettez à jour le texte et la couleur du message
+            uppercaseMessage.innerHTML = '';
+            appendMessage(hasUppercase, 'Le mot de passe doit contenir au moins une lettre majuscule.');
+            appendMessage(hasLowercase, 'Le mot de passe doit contenir au moins une lettre minuscule.');
+            appendMessage(hasDigit, 'Le mot de passe doit contenir au moins un chiffre.');
+
+            // Désactiver le bouton de soumission si une des conditions n'est pas remplie
+            submitButton.disabled = !(hasUppercase && hasLowercase && hasDigit);
+            submitButton.classList.toggle('form-button-disabled', !(hasUppercase && hasLowercase && hasDigit));
+            submitButton.style.cursor = (hasUppercase && hasLowercase && hasDigit) ? 'pointer' : 'not-allowed';
+            submitButton.classList.add('form-button');
+        });
+
+        function appendMessage(condition, message) {
+            var span = document.createElement('span');
+            span.style.color = condition ? 'green' : 'gray';
+            span.innerText = message;
+            uppercaseMessage.appendChild(span);
+            uppercaseMessage.appendChild(document.createElement('br'));
+        }
+    });
+</script>
 {% endblock %}
