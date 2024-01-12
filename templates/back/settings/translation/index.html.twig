@@ -1,0 +1,98 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Traduction {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% block content %}
+
+    <table data-content="{{ content|json_encode|e('html_attr') }}">
+        <thead>
+            <tr>
+                <th>Anglais</th>
+                <th class="editable-column">Français</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in content %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td class="editable-cell" data-key="{{ key }}">{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <button id="addRowButton">Ajouter une ligne</button>
+
+<!-- Add this script tag in your HTML file -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var addRowButton = document.getElementById('addRowButton');
+
+    addRowButton.addEventListener('click', function () {
+        // Add a new row to the table
+        var tableBody = document.querySelector('table tbody');
+        var newRow = tableBody.insertRow();
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+
+        // Create input elements for key and value in the new row
+        var keyInput = document.createElement('input');
+        keyInput.type = 'text';
+        keyInput.name = 'key';
+        keyInput.placeholder = 'En anglais';
+        cell1.appendChild(keyInput);
+
+        var valueInput = document.createElement('input');
+        valueInput.type = 'text';
+        valueInput.name = 'value';
+        valueInput.placeholder = 'En français';
+        cell2.appendChild(valueInput);
+
+        // Focus on the key input field for user input
+        keyInput.focus();
+    });
+
+    // Add a click event listener to the document to handle saving when clicking outside input fields
+    document.addEventListener('click', function (event) {
+        var clickedElement = event.target;
+        var isInputField = clickedElement.nodeName === 'INPUT';
+
+        if (!isInputField) {
+            // Trigger save action if both key and value have non-empty values
+            var lastRow = document.querySelector('table tbody tr:last-child');
+            var keyInput = lastRow.querySelector('[name="key"]');
+            var valueInput = lastRow.querySelector('[name="value"]');
+
+            if (keyInput && valueInput && keyInput.value.trim() !== '' && valueInput.value.trim() !== '') {
+                saveTranslation(keyInput.value, valueInput.value);
+            }
+        }
+    });
+
+    function saveTranslation(key, value) {
+        // Make an AJAX request to Symfony controller to add/update the translation
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/admin/parametres/traduction/ajouter', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    console.log(JSON.parse(xhr.responseText).message);
+                } else {
+                    console.error('Error saving translation:', xhr.statusText);
+                }
+            }
+        };
+
+        // Extract key and value from the input elements in the new row
+        var params = 'key=' + encodeURIComponent(key) + '&value=' + encodeURIComponent(value);
+        xhr.send(params);
+    }
+});
+</script>
+
+
+    {% endblock %}
+{% endblock %}
