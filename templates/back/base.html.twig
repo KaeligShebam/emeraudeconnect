@@ -12,21 +12,32 @@
 </head>
 
 <body>
-  <div class="sidebar">
+<div class="sidebar">
     <a href="{{ path('admin') }}"><img src=""></a>
-    <ul>
-      <li class="">
-        <a class="" href="{{ path('admin') }}">Tableau de Bord</a>
-      </li>
-    </ul>
 
-    <ul>
-      <p class="title">Utilisateurs</p>
-      <li class="">
-        <a class="" href="">Liste</a>
-      </li>
+    <ul class="menu">
+        <li>
+            <a href="{{ path('admin') }}">Tableau de Bord</a>
+        </li>
+
+        <li class="submenu">
+            <p class="title">Utilisateurs</p>
+            <ul>
+                <li><a href="#">Liste</a></li>
+                <li><a href="#">Ajouter</a></li>
+            </ul>
+        </li>
+
+        <li class="submenu">
+            <p class="title">Paramètres</p>
+            <ul>
+                <li><a href="{{path('translation_back')}}">Traduction</a></li>
+            </ul>
+        </li>
     </ul>
-  </div>
+</div>
+
+
 
   <div id="general">
     <div class="content">

@@ -1,6 +1,6 @@
-'The email is already used !': "Cet email a déjà été utilisé !\n"
-success_message: 'Inscription réussie avec succès !'
-success_message_register_user: 'Votre inscription est un succès !'
-cccccc: ccccc
-hello: bonjour
-heo: eee
+Authentification:
+    success_message: 'Inscription réussie avec succès !'
+    success_message_register_user: 'Votre inscription est un succès !'
+    email_already_used_message: 'Cet email a déjà été utilisé !'
+Autres:
+    error_generic_message: "Une erreur s'est produite. Veuillez réésayer"

@@ -13,6 +13,13 @@
     </div>
 {% endif %}
     {{ form_start(form) }}
+     {% if successMessage is not null %}
+    <div class="alert alert-success">{{ successMessage }}</div>
+{% endif %}
+
+{% if errorMessage is not null %}
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+{% endif %}
         {{ form_row(form.lastname) }}
         {{ form_row(form.firstname) }}
         {{ form_row(form.email) }}
