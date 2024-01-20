@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PageRepository;
@@ -30,6 +32,10 @@ class Page
 
     #[ORM\Column(nullable: true)]
     private ?\DateTime $updatedAt = null;
+
+    #[ORM\ManyToOne(targetEntity: PageStatus::class, inversedBy: 'pages')]
+    #[ORM\JoinColumn(name: 'status_id', referencedColumnName: 'id', nullable: false)]
+    private ?PageStatus $status = null;
 
     public function getId(): ?int
     {
@@ -92,6 +98,17 @@ class Page
     public function SetUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+    public function getStatus(): ?PageStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?PageStatus $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

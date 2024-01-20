@@ -7,6 +7,21 @@ parameters:
     auth_provider: 'app_user_provider' # ou 'app_team_provider' selon votre logique
 
 services:
+    App\Form\Back\Page\AddPageTypeFactory:
+        arguments:
+            $formFactory: '@form.factory'
+            $translator: '@translator'
+            $yamlFilePath: '%kernel.project_dir%/translations/validators.fr.yaml'
+
+    App\Form\Back\Page\AddPageType:
+        factory: ['@App\Form\Back\Page\AddPageTypeFactory', 'create']
+        arguments:
+            $options: []
+        tags:
+            - { name: 'form.type' }
+
+
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

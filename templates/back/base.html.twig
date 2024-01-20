@@ -12,12 +12,20 @@
 </head>
 
 <body>
+
 <div class="sidebar">
     <a href="{{ path('admin') }}"><img src=""></a>
 
     <ul class="menu">
         <li>
             <a href="{{ path('admin') }}">Tableau de Bord</a>
+        </li>
+
+        <li class="submenu">
+            <p class="title">Général</p>
+            <ul>
+                <li><a href="{{ path('admin_page') }}">Pages</a></li>
+            </ul>
         </li>
 
         <li class="submenu">
@@ -37,10 +45,10 @@
     </ul>
 </div>
 
-
-
   <div id="general">
     <div class="content">
+        <h1 class="titlePage">{% block pageTitle %}Titre par défaut{% endblock %}</h1>
+        <div class="seperator"></div>
         {% block content %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </div>
