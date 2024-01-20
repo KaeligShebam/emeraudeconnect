@@ -1,0 +1,28 @@
+{% extends '/back/base.html.twig' %}
+
+{% block title %}Modification de page{{ parent() }}{% endblock %}
+
+{% block pageTitle %}Modifier la page - {{page.title}}{% endblock %}
+
+{% block body %}
+    {% block content %}
+    <div class="container">
+        <div class="main-column">
+            {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.content) }}
+            
+        </div>
+        <div class="sidebar-right">
+            {{ form_row(form.status) }}
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://cdn.tiny.cloud/1/ggh2a7sc3rwms25itz7ngimudjedeaqimxkc4sv7rledu94j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="{{ asset('assets/js/tinyMCE/tinyMCE.js') }}"></script>
+    {% endblock %}
+{% endblock %}

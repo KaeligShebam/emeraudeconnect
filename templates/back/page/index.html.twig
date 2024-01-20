@@ -13,9 +13,10 @@
                 <thead>
                     <tr>
                     <th>Titre</th>
-                    <th>Contenu</th>
+                    <th>Statut</th>
                     <th>Créé le</th>
                     <th>MAJ le</th>
+                    <th>Action</th>
                     </tr>
                 </thead>
                 </table>
@@ -25,16 +26,17 @@
                 <tbody>
                     {% for page in pages %}
                         <tr>
-                        <td>{{ page.title }}</td>
-                        <td>{{ page.content }}</td>
-                        <td>{{ page.createdAt|date('d-m-Y \\à H\\hi') }}</td>
-                        <td>
-                            {% if page.updatedAt is not null %}
-                                    {{ page.updatedAt|date('d-m-Y \\à H\\hi') }}
-                                {% else %}
-                                <p>Pas de mise à jour faite</p>
-                            {% endif %}
-                        </td>
+                            <td>{{ page.title }}</td>
+                            <td>{{ page.status.name }}</td>
+                            <td>{{ page.createdAt|date('d-m-Y \\à H\\hi') }}</td>
+                            <td>
+                                {% if page.updatedAt is not null %}
+                                        {{ page.updatedAt|date('d-m-Y \\à H\\hi') }}
+                                    {% else %}
+                                    <p>Pas de mise à jour faite</p>
+                                {% endif %}
+                            </td>
+                            <td></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -44,7 +46,7 @@
         {% else %}
             <p>Vous n'avez pas encore créé de page.</p>
         {% endif %}
-       <a href="{{ path('admin_add_admin') }}" id="addRowButton">{{ addPageButtonLabel }}</a>
+       <a href="{{ path('page_add_admin') }}" id="addRowButton">{{ addPageButtonLabel }}</a>
 
     {% endblock %}
 {% endblock %}
