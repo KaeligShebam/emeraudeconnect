@@ -5,24 +5,18 @@
 {% block pageTitle %}Nouvelle page {% endblock %}
 
 {% block body %}
-
     {% block content %}
-    
     <div class="container">
-    
         <div class="main-column">
-            
-
             {{ form_start(form) }}
             {{ form_row(form.title) }}
-            {{ form_row(form.content, {'attr': {'class': 'tinymce'}}) }}
+            {{ form_row(form.content) }}
             
         </div>
-
         <div class="sidebar-right">
             {{ form_row(form.status) }}
             {{ form_row(form.submit) }}
-            {# Ajoutez d'autres éléments de la barre latérale si nécessaire #}
+            {{ form_end(form) }}
         </div>
     </div>
     {% endblock %}
