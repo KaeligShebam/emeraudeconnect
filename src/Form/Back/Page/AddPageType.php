@@ -75,7 +75,7 @@ class AddPageType extends AbstractType
                 'attr' => ['class' => 'form-input', 'placeholder' => 'Titre de la page']
             ])
             ->add('content', TextareaType::class, [
-                'label' => 'Contenu',
+                'label' => false,
                 'required' => false,
                 'attr' => ['class' => 'ckeditor form-input mt-2 tinymce']
             ])

@@ -8,6 +8,11 @@
     {% block content %}
     <div class="container">
         <div class="main-column">
+            {% if successMessage %}
+                <div class="success-alert-message">
+                    {{ successMessage | raw }}
+                </div>
+            {% endif %}
             {{ form_start(form) }}
             {{ form_row(form.title) }}
             {{ form_row(form.content) }}
