@@ -7,6 +7,10 @@ parameters:
     auth_provider: 'app_user_provider' # ou 'app_team_provider' selon votre logique
 
 services:
+    App\Service\TranslationService:
+        arguments:
+            $translator: '@translator'
+            $parameterBag: '@parameter_bag'
     App\Form\Back\Page\AddPageTypeFactory:
         arguments:
             $formFactory: '@form.factory'

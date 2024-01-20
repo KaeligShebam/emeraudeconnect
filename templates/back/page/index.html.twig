@@ -44,6 +44,7 @@
         {% else %}
             <p>Vous n'avez pas encore créé de page.</p>
         {% endif %}
-        <a href="{{ path('admin_add_admin') }}" id="addRowButton">Ajouter une page</a>
+       <a href="{{ path('admin_add_admin') }}" id="addRowButton">{{ addPageButtonLabel }}</a>
+
     {% endblock %}
 {% endblock %}

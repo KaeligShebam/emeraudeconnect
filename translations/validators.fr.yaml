@@ -4,3 +4,5 @@ Authentification:
     email_already_used_message: 'Cet email a déjà été utilisé !'
 Boutons:
     btn_create_page: 'Créer une page'
+    btn_add_page: 'Ajouter une page'
+    btn_add_translate: 'Ajouter une traductions'
