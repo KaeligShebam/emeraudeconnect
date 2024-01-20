@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\PageSeo;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PageRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: PageRepository::class)]
@@ -36,6 +37,9 @@ class Page
     #[ORM\ManyToOne(targetEntity: PageStatus::class, inversedBy: 'pages')]
     #[ORM\JoinColumn(name: 'status_id', referencedColumnName: 'id', nullable: false)]
     private ?PageStatus $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'pages', cascade: ['persist', 'remove'])]
+    private ?PageSeo $seo = null;
 
     public function getId(): ?int
     {
@@ -109,6 +113,18 @@ class Page
     public function setStatus(?PageStatus $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getSeo(): ?PageSeo
+    {
+        return $this->seo;
+    }
+
+    public function setSeo(?PageSeo $seo): static
+    {
+        $this->seo = $seo;
 
         return $this;
     }
