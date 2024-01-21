@@ -32,4 +32,16 @@ class PageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findForSitemap()
+    {
+        return $this->createQueryBuilder('p')
+        ->join('p.seo', 's')
+        ->join('p.status', 'ps')
+        ->andWhere('s.indexation = :indexation')
+        ->andWhere('ps.name = :status')
+        ->setParameter('indexation', 1) // Remplacez par la valeur que vous souhaitez
+        ->setParameter('status', 'Publié') // Remplacez 'Publié' par la valeur correcte
+        ->getQuery()
+        ->getResult();
+    }
 }

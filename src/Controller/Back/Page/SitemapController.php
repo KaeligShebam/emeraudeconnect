@@ -4,6 +4,7 @@ namespace App\Controller\Back\Page;
 
 use App\Entity\Page;
 use App\Repository\PageRepository;
+use App\Repository\PageSeoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class SitemapController extends AbstractController
     #[Route('/sitemap.xml', name: 'app_sitemap', format: 'xml')]
     public function generateSitemap(PageRepository $pageRepository): Response
     {
-        $pages = $pageRepository->findBy(['status' => ['indexation' => 1]]);
+        $pages = $pageRepository->findForSitemap();
 
         $response = $this->render('front/page/sitemap.xml.twig', [
             'pages' => $pages,
