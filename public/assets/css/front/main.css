@@ -1,0 +1,29 @@
+/* Logo */
+.img-logo{width: 40%}
+/* End logo */
+
+.separator-left{background: var(--color-green-light-dark);width: 30px;height: 3px; margin: 10px auto 20px 0;}
+.separator-center{background: var(--color-green-light-dark);width: 30px;height: 3px;margin: 10px auto 20px auto;}
+.separator-right{background: var(--color-green-light-dark);width: 30px;height: 3px;margin: 10px 0 20px auto;}
+
+/* Messages alerts */
+.success-alert-message{display:flex;justify-content: center;width: fit-content; height: auto;padding: 5px 15px;text-align: center;background: var(--color-green-light-dark);color: var(--color-white);margin: auto;margin-bottom: 20px;}
+.error-message-warning {color: #ff0000;margin: 5px 0 15px 0; text-align: center;}
+/* END Errors messages */
+
+/* Coming soon */
+.general-maintenance {display: flex;justify-content: center;align-items: center;align-content: center;height: 100vh;}
+.general-maintenance .content{text-align: center;}
+.general-maintenance .content h1{font-size: 35px;font-family: 'Caviar Dreams Bold';}
+.general-maintenance .content p{font-size: 25px;font-family: 'Caviar Dreams';line-height: 35px;}
+.general-maintenance .content p:first-child{margin-top: 65px}
+/* End Coming soon */
+
+/* Forms */
+.form-container {width: 500px;margin: 0 auto;background-color: #f4f4f4;padding: 20px;border-radius: 8px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);position: absolute;top: 50%;left: 50%;margin: auto 0;transform: translate(-50%, -50%);}
+.form-input {width: 100%;padding: 10px;margin-bottom: 16px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;}
+.form-button {background-color: var(--color-green-smooth-light);color: white;padding: 10px 15px;border: none;border-radius: 4px;cursor: pointer;}
+.form-button:hover {background-color: var(--color-green-light-dark);}
+.form-button-disabled {background-color: var(--color-grey);color: white;padding: 10px 15px;border: none;border-radius: 4px;cursor: pointer;}
+.form-button-disabled:hover {background-color: var(--color-grey);}
+/* END Forms */
