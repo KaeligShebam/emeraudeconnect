@@ -1,0 +1,22 @@
+{# templates/front/page/detail.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block head %}
+    <meta name="title" content="{{ page.seo.metaTitle }}">
+    <meta name="description" content="{{ page.seo.metaDescription }}">
+    {% if page.seo.indexation == '1' %}
+    {% else %}
+        <meta name="robots" content="noindex">
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    <p>{{ page.content|raw }}</p>
+    {# ... d'autres champs de la page #}
+{% endblock %}
+{% endblock %}

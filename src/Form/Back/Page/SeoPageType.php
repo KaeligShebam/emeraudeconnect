@@ -10,25 +10,29 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class SeoType extends AbstractType
+class SeoPageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('metaTitle', TextType::class, [
                 'label' => false,
-                'attr' => ['class' => 'form-input', 'placeholder' => 'Meta titre']
+                'attr' => ['class' => 'form-input mt-2', 'placeholder' => 'Meta titre'],
+                'required' => true,
             ])
             ->add('metaDescription', TextType::class, [
                 'label' => false,
-                'attr' => ['class' => 'form-input', 'placeholder' => 'Meta description']
+                'attr' => ['class' => 'form-input', 'placeholder' => 'Meta description'],
+                'required' => true,
             ])
             ->add('indexation', ChoiceType::class, [
-                'label' => 'Indexer la page', // Customize label as needed
-                'required' => true, // Set to true if the indexAction should be required
+                'label' => 'Indexer la page',
+                'label_attr' => ['class' => 'pagelabel'],
+                'required' => true,
+                'attr' => ['class' => 'indexation'],
                 'choices' => [
-                    'Oui' => 'oui',
-                    'Non' => 'non',
+                    'Oui' => '1',
+                    'Non' => '0',
                 ],
                 'expanded' => true, // Render as checkboxes
                 'multiple' => false, // Allow only one option to be selected

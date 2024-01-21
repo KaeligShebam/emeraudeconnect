@@ -5,6 +5,7 @@ namespace App\Form\Back\Page;
 use App\Entity\Page;
 use App\Entity\PageStatus;
 use Symfony\Component\Yaml\Yaml;
+use App\Form\Back\Page\SeoPageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -84,7 +85,11 @@ class EditPageType extends AbstractType
                 'label' => 'Statut de la page',
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-input mt-2'],
-                'label_attr' => [ 'class' => 'mt-2']
+                'label_attr' => [ 'class' => 'mt-2 pagelabel']
+            ])
+            ->add('seo', SeoPageType::class, [
+                'label' => false, // You can customize this label as needed
+                
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $buttonLabel,
