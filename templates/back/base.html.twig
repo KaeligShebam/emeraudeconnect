@@ -24,7 +24,7 @@
         <li class="submenu">
             <p class="title">Général</p>
             <ul>
-                <li><a href="{{ path('admin_page') }}">Pages</a></li>
+                <li><a href="{{ path('page_list_admin') }}">Pages</a></li>
             </ul>
         </li>
 
@@ -50,7 +50,9 @@
         <h1 class="titlePage">{% block pageTitle %}Titre par défaut{% endblock %}</h1>
         <div class="seperator"></div>
         {% block content %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="https://kit.fontawesome.com/fc4b89a096.js" crossorigin="anonymous"></script>
+        {% endblock %}
     </div>
   </div>
 </body>

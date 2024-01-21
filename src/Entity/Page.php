@@ -41,6 +41,9 @@ class Page
     #[ORM\ManyToOne(inversedBy: 'pages', cascade: ['persist', 'remove'])]
     private ?PageSeo $seo = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isDeleted = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +128,18 @@ class Page
     public function setSeo(?PageSeo $seo): static
     {
         $this->seo = $seo;
+
+        return $this;
+    }
+
+    public function isIsDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(?bool $isDeleted): static
+    {
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }

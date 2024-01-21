@@ -7,7 +7,8 @@ Boutons:
     btn_add_page: 'Ajouter une page'
     btn_add_translate: 'Ajouter une traductions'
     btn_modify_page: 'Modifier la page'
+    btn_trash_page: Corbeille
+    btn_return_page: Retour
 Pages:
     success_add_page: 'La page a bien été ajoutée !'
     success_edit_page: 'La page a été mise à jour !'
-

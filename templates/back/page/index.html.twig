@@ -6,47 +6,55 @@
 {% block body %}
     {% block content %}
 
-{% if pages is not empty %}
-        <section>
-            <div class="tbl-header">
-                <table cellpadding="0" cellspacing="0" border="0">
-                <thead>
-                    <tr>
-                    <th>Titre</th>
-                    <th>Statut</th>
-                    <th>Créé le</th>
-                    <th>MAJ le</th>
-                    <th>Action</th>
-                    </tr>
-                </thead>
-                </table>
-            </div>
-            <div class="tbl-content">
-                <table cellpadding="0" cellspacing="0" border="0">
-                <tbody>
-                    {% for page in pages %}
-                        <tr>
-                            <td>{{ page.title }}</td>
-                            <td>{{ page.status.name }}</td>
-                            <td>{{ page.createdAt|date('d-m-Y \\à H\\hi') }}</td>
-                            <td>
-                                {% if page.updatedAt is not null %}
-                                        {{ page.updatedAt|date('d-m-Y \\à H\\hi') }}
-                                    {% else %}
-                                    <p>Pas de mise à jour faite</p>
-                                {% endif %}
-                            </td>
-                            <td></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                </table>
-            </div>
-        </section>
+        {% if pages %}
+            <section>
+                <a href="{{ path('page_trash_admin') }}" class="link">{{ trashButton }} ({{ countPagesDeleted }})</a>
+                <div class="tbl-header">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Statut</th>
+                                <th>Créé le</th>
+                                <th>MAJ le</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tbl-content">
+                    <table cellpadding="0" cellspacing="0" border="0" valign="center">
+                        <tbody class="text-center">
+                            {% for page in pages %}
+                                <tr>
+                                    <td>{{ page.title }}</td>
+                                    <td>{{ page.status.name }}</td>
+                                    <td>{{ page.createdAt|date('d-m-Y \\à H\\hi') }}</td>
+                                    <td>
+                                        {% if page.updatedAt is not null %}
+                                            {{ page.updatedAt|date('d-m-Y \\à H\\hi') }}
+                                        {% else %}
+                                            <p>Pas de mise à jour faite</p>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('page_edit_admin', {'id': page.id}) }}"><i class="text-white fa-regular fa-pen-to-square"></i></a>
+                                        {% if not page.isDeleted %}
+                                            <a href="{{ path('page_delete_admin', {'id': page.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette page ? Elle sera mise dans la corbeille')"><i class="text-white fa-regular fa-trash-can"></i></a>
+                                        {% else %}
+                                            <a href="{{ path('page_restore_admin', {'id': page.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir restaurer cette page ?')">Restaurer</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         {% else %}
             <p>Vous n'avez pas encore créé de page.</p>
         {% endif %}
-       <a href="{{ path('page_add_admin') }}" id="addRowButton">{{ addPageButtonLabel }}</a>
+        <a href="{{ path('page_add_admin') }}" id="addRowButton">{{ addPageButtonLabel }}</a>
 
     {% endblock %}
 {% endblock %}

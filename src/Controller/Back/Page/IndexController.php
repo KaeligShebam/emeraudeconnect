@@ -2,9 +2,11 @@
 
 namespace App\Controller\Back\Page;
 
+use App\Entity\Page;
 use Symfony\Component\Yaml\Yaml;
 use App\Repository\PageRepository;
 use App\Service\TranslationService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -22,14 +24,21 @@ class IndexController extends AbstractController
         $this->translationService = $translationService;
 
     }
-    #[Route('/',  name: 'admin_page')]
-    public function index(PageRepository $pageRepository): Response
+    #[Route('/',  name: 'page_list_admin')]
+    public function index(PageRepository $pageRepository, EntityManagerInterface $entityManager): Response
     {
         $addPageButtonLabel = $this->translationService->findTranslation('btn_add_page');
+        $trashButton = $this->translationService->findTranslation('btn_trash_page');
+
+        $countPagesDeleted = $pageRepository->count(['isDeleted' => 1]);
+
+        $pages = $pageRepository->findActivePages();
 
         return $this->render('back/page/index.html.twig', [
-            'pages' => $pageRepository->findAll(),
+            'pages' => $pages,
             'addPageButtonLabel' => $addPageButtonLabel,
+            'trashButton' => $trashButton,
+            'countPagesDeleted' => $countPagesDeleted
         ]);
     }
 

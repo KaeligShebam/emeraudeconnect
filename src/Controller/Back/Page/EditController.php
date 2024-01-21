@@ -27,7 +27,7 @@ class EditController extends AbstractController
         $this->translator = $translator;
         $this->translationService = $translationService;
     }
-    #[Route('/modifier/{id}', name: 'admin_edit_page')]
+    #[Route('/modifier/{id}', name: 'page_edit_admin')]
     public function edit(Request $request, Page $page, SluggerInterface $slugger, ManagerRegistry $doctrine): Response
     {
         $form = $this->createForm(EditPageType::class, $page);

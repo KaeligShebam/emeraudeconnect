@@ -1,0 +1,56 @@
+{% extends '/back/base.html.twig' %}
+
+{% block title %}Restauration de page {{ parent() }}{% endblock %}
+{% block pageTitle %}Restauration de page {% endblock %}
+
+{% block body %}
+    {% block content %}
+
+{% if pages %}
+        <section>
+            
+            <a href="{{ path('page_list_admin') }}" class="link"><i class="fa-solid fa-arrow-left"></i> {{returnButton}}</a>
+            <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                    <th>Titre</th>
+                    <th>Statut</th>
+                    <th>Créé le</th>
+                    <th>MAJ le</th>
+                    <th>Action</th>
+                    </tr>
+                </thead>
+                </table>
+            </div>
+            <div class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                <tbody class="text-center">
+                    {% for page in pages %}
+                        <tr>
+                            <td>{{ page.title }}</td>
+                            <td>{{ page.status.name }}</td>
+                            <td>{{ page.createdAt|date('d-m-Y \\à H\\hi') }}</td>
+                            <td>
+                                {% if page.updatedAt is not null %}
+                                        {{ page.updatedAt|date('d-m-Y \\à H\\hi') }}
+                                    {% else %}
+                                    <p>Pas de mise à jour faite</p>
+                                {% endif %}
+                            </td>
+                    <td>
+                            <a href="{{ path('page_restore_id_admin', {'id': page.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir restaurer cette page ?')"><i class="text-white fa-solid fa-plus"></i></a>
+                            <a href="{{ path('page_delete_permanently_admin', {'id': page.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette page définitivement ?')"><i class="text-white fa-regular fa-trash-can"></i></a>
+                    </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </section>
+        {% else %}
+            <p>Vous n'avez pas de page mise à la corbeille.</p>
+        {% endif %}
+
+    {% endblock %}
+{% endblock %}
