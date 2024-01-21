@@ -5,7 +5,10 @@
 
 {% block body %}
     {% block content %}
-        <a href="{{ path('page_trash_admin') }}" class="link">{{ trashButton }} ({{ countPagesDeleted }})</a>
+        <div class="otherLink">
+            <a href="{{ path('page_trash_admin') }}" class="link">{{ trashButton }} ({{ countPagesDeleted }})</a>
+            <a class="link" href="{{ path('app_sitemap') }}" target="new">{{sitemapButton}} <i class="fa-solid fa-up-right-from-square"></i></a>
+        </div>
         {% if pages %}
             <section>
                 

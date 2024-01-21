@@ -29,6 +29,7 @@ class IndexController extends AbstractController
     {
         $addPageButtonLabel = $this->translationService->findTranslation('btn_add_page');
         $trashButton = $this->translationService->findTranslation('btn_trash_page');
+        $sitemapButton = $this->translationService->findTranslation('btn_sitemap_page');
 
         $countPagesDeleted = $pageRepository->count(['isDeleted' => 1]);
 
@@ -38,6 +39,7 @@ class IndexController extends AbstractController
             'pages' => $pages,
             'addPageButtonLabel' => $addPageButtonLabel,
             'trashButton' => $trashButton,
+            'sitemapButton' => $sitemapButton,
             'countPagesDeleted' => $countPagesDeleted
         ]);
     }

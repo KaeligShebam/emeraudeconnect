@@ -9,6 +9,7 @@ Boutons:
     btn_modify_page: 'Modifier la page'
     btn_trash_page: Corbeille
     btn_return_page: Retour
+    btn_sitemap_page: 'Voir le sitemap'
 Pages:
     success_add_page: 'La page a bien été ajoutée !'
     success_edit_page: 'La page a été mise à jour !'

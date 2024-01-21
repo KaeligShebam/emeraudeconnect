@@ -71,4 +71,5 @@ section{margin: 50px;}
 .seePageBtn{text-decoration:none;display:block;cursor:pointer;margin-bottom:15px;border: none;border-radius:20px;outline: none;background: var(--color-green-dark);padding: 10px 20px;color: var(--color-white);transition: background 0.5s ease;width: fit-content;}
 .seePageBtn:hover{color: var(--color-green-dark);background: var(--color-white);}
 .countMetaSeo{display: block;margin: -10px 0 15px 0;color: var(--color-white);}
+.otherLink{display: flex;justify-content: space-between;}
 /* END Pages */
