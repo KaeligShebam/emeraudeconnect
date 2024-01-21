@@ -19,7 +19,9 @@
             {{ form_row(form.content) }}
             <h3 class="seoSection">SEO</h3>
             {{ form_row(form.seo.metaTitle) }}
+            <span class="countMetaSeo" id="title-char-count">60 caractères restants</span>
             {{ form_row(form.seo.metaDescription) }}
+            <span class="countMetaSeo" id="description-char-count">120 caractères restants</span>
             {{ form_row(form.seo.indexation) }}
         </div>
         <div class="sidebar-right">
@@ -34,5 +36,7 @@
     {% block javascripts %}
         <script src="https://cdn.tiny.cloud/1/ggh2a7sc3rwms25itz7ngimudjedeaqimxkc4sv7rledu94j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
         <script src="{{ asset('assets/js/tinyMCE/tinyMCE.js') }}"></script>
+        <script src="{{ asset('assets/js/seo/edit/metaTitleLimitCaracters.js') }}"></script>
+        <script src="{{ asset('assets/js/seo/edit/metaDescriptionLimitCaracters.js') }}"></script>
     {% endblock %}
 {% endblock %}
