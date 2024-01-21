@@ -34,6 +34,7 @@ class EditController extends AbstractController
         $form->handleRequest($request);
 
         $successMessage = null;
+        $seePage = $this->translationService->findTranslation('see_page');
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Générez le slug à partir du titre
@@ -53,6 +54,7 @@ class EditController extends AbstractController
             'page' => $page,
             'form' => $form->createView(),
             'successMessage' => $successMessage,
+            'seePage' => $seePage
         ]);
     }
 }

@@ -5,12 +5,14 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     auth_provider: 'app_user_provider' # ou 'app_team_provider' selon votre logique
-
 services:
     App\Service\TranslationService:
         arguments:
             $translator: '@translator'
             $parameterBag: '@parameter_bag'
+    Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver:
+        tags: ['controller.argument_value_resolver']
+
 
     # default configuration for services in *this* file
     _defaults:

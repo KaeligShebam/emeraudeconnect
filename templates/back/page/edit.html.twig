@@ -23,6 +23,7 @@
             {{ form_row(form.seo.indexation) }}
         </div>
         <div class="sidebar-right">
+            <a href="{{ path('app_page', {'slug': page.slug}) }}" class="seePageBtn" target="new">{{seePage}}</a>
             {{ form_row(form.status) }}
             {{ form_row(form.submit) }}
             {{ form_end(form) }}

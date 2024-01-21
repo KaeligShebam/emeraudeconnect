@@ -21,6 +21,6 @@ class RestoreIdController extends AbstractController
         $entityManager = $doctrine->getManager();
         $entityManager->flush();
 
-        return $this->redirectToRoute('page_restore_admin');
+        return $this->redirectToRoute('page_list_admin');
     }
 }

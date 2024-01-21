@@ -102,7 +102,7 @@ class Page
         return $this->updatedAt;
     }
 
-    public function SetUpdatedAt(\DateTime $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
