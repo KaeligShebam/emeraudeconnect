@@ -1,5 +1,5 @@
 Authentification:
-    success_message: 'Inscription réussie avec succès !MMMMmmmmmm'
+    success_message: 'Inscription réussie avec succès !'
     success_message_register_user: 'Votre inscription est un succès !'
     email_already_used_message: 'Cet email a déjà été utilisé !'
 Boutons:

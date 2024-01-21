@@ -1,0 +1,24 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Équipe {{ parent() }}{% endblock %}
+{% block pageTitle %}Équipe{% endblock %}
+
+{% block body %}
+    {% block content %}
+
+        <table>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">Email</td>
+                </tr>
+                {% for team in teams %}
+                <tr style="text-align: center;">
+                    <td style="text-align: center;">{{ team.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    {% endblock %}
+{% endblock %}

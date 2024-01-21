@@ -24,26 +24,62 @@
         <li class="submenu">
             <p class="title">Général</p>
             <ul>
-                <li><a href="{{ path('page_list_admin') }}">Pages</a></li>
+                <li>
+                    <a href="{{ path('page_list_admin') }}" {% if app.request.attributes.get('_route') starts with 'page_list_admin' %}class="active"{% endif %}>
+                        Pages
+                    </a>
+                </li>
+                {% if app.request.attributes.get('_route') in ['page_list_admin', 'page_add_admin'] %}
+                    <li class="sub-submenu">
+                        <a href="{{ path('page_add_admin') }}" {% if app.request.attributes.get('_route') == 'page_add_admin' %}class="active"{% endif %}>
+                            Ajouter
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </li>
 
         <li class="submenu">
             <p class="title">Utilisateurs</p>
             <ul>
-                <li><a href="#">Liste</a></li>
-                <li><a href="#">Ajouter</a></li>
+                <li>
+                    <a href="{{ path('users_customer_admin') }}" {% if app.request.attributes.get('_route') starts with 'users_customer_admin' %}class="active"{% endif %}>
+                        Client
+                    </a>
+                </li>
+                {% if app.request.attributes.get('_route') in ['users_customer_admin', 'users_customer_add_admin'] %}
+                    <li class="sub-submenu">
+                        <a href="" {% if app.request.attributes.get('_route') == 'users_customer_add_admin' %}class="active"{% endif %}>
+                            Ajouter
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul>
+                <li>
+                    <a href="{{ path('users_team_admin') }}" {% if app.request.attributes.get('_route') starts with 'users_team_admin' %}class="active"{% endif %}>
+                        Équipe
+                    </a>
+                </li>
+                {% if app.request.attributes.get('_route') in ['users_team_admin', 'users_team_add_admin'] %}
+                    <li class="sub-submenu">
+                        <a href="" {% if app.request.attributes.get('_route') == 'users_team_add_admin' %}class="active"{% endif %}>
+                            Ajouter
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </li>
 
         <li class="submenu">
             <p class="title">Paramètres</p>
             <ul>
-                <li><a href="{{path('translation_back')}}">Traduction</a></li>
+                <li><a href="{{ path('translation_back') }}" {% if app.request.attributes.get('_route') == 'translation_back' %}class="active"{% endif %}>Traduction</a></li>
             </ul>
         </li>
     </ul>
 </div>
+
 
   <div id="general">
     <div class="content">
