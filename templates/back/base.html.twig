@@ -75,6 +75,7 @@
             <p class="title">Paramètres</p>
             <ul>
                 <li><a href="{{ path('translation_back') }}" {% if app.request.attributes.get('_route') == 'translation_back' %}class="active"{% endif %}>Traduction</a></li>
+                <li><a href="{{ path('app_menu_admin') }}" {% if app.request.attributes.get('_route') == 'app_menu_admin' %}class="active"{% endif %}>Menu</a></li>       
             </ul>
         </li>
     </ul>

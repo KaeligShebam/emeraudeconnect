@@ -1,0 +1,34 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Menu de navigation {{ parent() }}{% endblock %}
+{% block pageTitle %}Menu de navigation {% endblock %}
+
+{% block body %}
+    {% block content %}
+    {% if menus %}
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0" valign="center">
+                <tbody class="text-center">
+                    {% for menu in menus %}
+                        <tr>
+                            <td>{{ menu.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>Pas de menu créé</p>
+    {% endif %}
+
+    {% endblock %}
+{% endblock %}

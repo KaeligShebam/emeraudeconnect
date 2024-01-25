@@ -1,0 +1,115 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Ajouter page au menu {{ parent() }}{% endblock %}
+{% block pageTitle %}Ajouter page au menu{% endblock %}
+
+{% block body %}
+    {% block content %}
+
+    <div class="container">
+        <div class="pages-list">
+            <h2>Liste des pages</h2>
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        <input type="checkbox" class="page-checkbox" data-page-id="{{ page.title }}">
+                        {{ page.title }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="menus-container">
+            <h2>Menu Container</h2>
+            <!-- Zone pour afficher les menus sélectionnés -->
+
+        </div>
+
+<ul>
+    {% for page in pagesMenu %}
+        <li>{{ page.title }}</li>
+    {% endfor %}
+</ul>
+    </div>
+
+    <button type="button" id="saveButton">Ajouter les pages</button>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Sélectionnez tous les éléments checkbox avec la classe 'page-checkbox'
+    var checkboxes = document.querySelectorAll('.page-checkbox');
+
+    // Sélectionnez la div pour afficher les menus sélectionnés
+    var menuContainer = document.querySelector('.menus-container');
+
+    // Ajoutez un écouteur d'événements pour chaque case à cocher
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            // Si la case à cocher est cochée, ajoutez le menu à la div
+            if (checkbox.checked) {
+                var pageId = checkbox.getAttribute('data-page-id');
+                var menuElement = document.createElement('div');
+                menuElement.textContent = pageId; // Remplacez par le texte approprié
+                menuContainer.appendChild(menuElement);
+            }
+            // Si la case à cocher est décochée, retirez le menu de la div (si nécessaire)
+            // else {
+            //     // Implémentez la logique pour retirer le menu de la div si nécessaire
+            // }
+        });
+    });
+
+    // Sélectionnez le bouton d'enregistrement
+    var saveButton = document.getElementById('saveButton');
+
+    // Ajoutez un écouteur d'événements pour le clic sur le bouton
+    saveButton.addEventListener('click', function () {
+        // Récupérez les pages sélectionnées
+        var selectedPages = document.querySelectorAll('.page-checkbox:checked');
+
+        // Récupérez les IDs des pages sélectionnées
+        var selectedPageIds = Array.from(selectedPages).map(function (checkbox) {
+            return checkbox.getAttribute('data-page-id');
+        });
+
+        // Récupérez l'ID du menu depuis l'URL
+        var url = new URL(window.location.href);
+
+var urlSegments = url.pathname.split('/').filter(segment => segment !== ''); // Filtrer les segments vides
+var menuId = urlSegments[urlSegments.indexOf('ajouter-pages') - 1]; // Obtenir l'ID situé avant 'ajouter-pages'
+
+
+console.log('Pages sélectionnées :', selectedPageIds); // Ajoutez cette ligne pour vérifier les pages sélectionnées
+
+
+
+        // Créez un objet pour stocker les données à envoyer
+        var dataToSend = {
+            pageIds: selectedPageIds
+        };
+console.log('Données à envoyer au serveur :', dataToSend);
+
+        // Envoyez les données au serveur avec AJAX
+        fetch('/ajax/save-pages-to-menu/' + menuId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Changez le type de contenu à JSON
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(dataToSend), // Convertissez l'objet en chaîne JSON
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Réponse du serveur:', data);
+            if (data.success) {
+                console.log('Enregistrement réussi:', data.message);
+            } else {
+                console.error('Échec de l\'enregistrement:', data.message);
+            }
+        });
+    });
+});
+    </script>
+
+    {% endblock %}
+{% endblock %}

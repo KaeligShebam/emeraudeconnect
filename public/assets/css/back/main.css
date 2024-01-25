@@ -73,3 +73,29 @@ section{margin: 50px;}
 .countMetaSeo{display: block;margin: -10px 0 15px 0;color: var(--color-white);}
 .otherLink{display: flex;justify-content: space-between;}
 /* END Pages */
+
+/* Menu */
+.page-list{
+  width: fit-content;
+  background: var(--color-white);
+}
+.page-list ul li{list-style: none;}
+
+/* Style pour les boutons d'ajout de menus et les menus ajoutés */
+.menus-container {
+  margin-top: 20px;
+}
+
+.add-menu-button {
+  margin-right: 10px;
+}
+
+.menu-entry {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+}
+

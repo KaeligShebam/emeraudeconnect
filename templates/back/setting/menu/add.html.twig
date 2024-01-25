@@ -1,0 +1,13 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Ajouter Menu {{ parent() }}{% endblock %}
+{% block pageTitle %}Ajouter Menu {% endblock %}
+
+{% block body %}
+    {% block content %}
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.submit) }}
+        {{ form_end(form) }}
+    {% endblock %}
+{% endblock %}

@@ -43,7 +43,16 @@ class Page
 
     #[ORM\Column(nullable: true)]
     private ?bool $isDeleted = null;
+    
+    #[ORM\ManyToMany(targetEntity: PageMenu::class, mappedBy: 'pages')]
+    private Collection $pageMenus;
+    
 
+    public function __construct()
+    {
+        $this->pageMenus = new ArrayCollection();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -143,4 +152,32 @@ class Page
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, PageMenu>
+     */
+    public function getPageMenus(): Collection
+    {
+        return $this->pageMenus;
+    }
+
+    public function addPageMenu(PageMenu $pageMenu): static
+    {
+        if (!$this->pageMenus->contains($pageMenu)) {
+            $this->pageMenus->add($pageMenu);
+            $pageMenu->addPage($this);
+        }
+
+        return $this;
+    }
+
+    public function removePageMenu(PageMenu $pageMenu): static
+    {
+        if ($this->pageMenus->removeElement($pageMenu)) {
+            $pageMenu->removePage($this);
+        }
+
+        return $this;
+    }
+
 }

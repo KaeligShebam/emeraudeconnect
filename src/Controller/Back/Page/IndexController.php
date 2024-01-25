@@ -15,12 +15,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/admin/page')]
 class IndexController extends AbstractController
 {
-    private $translator;
     private $translationService;
 
-    public function __construct(TranslatorInterface $translator, TranslationService $translationService)
+    public function __construct(TranslationService $translationService)
     {
-        $this->translator = $translator;
         $this->translationService = $translationService;
 
     }
