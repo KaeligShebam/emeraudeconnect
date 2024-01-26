@@ -12,13 +12,13 @@ class PageMenu
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column]   
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Page::class, inversedBy: 'pageMenus')]
+    #[ORM\ManyToMany(targetEntity: Page::class, inversedBy: 'pageMenus', cascade: ["persist", "remove", "merge"])]
     private Collection $pages;
 
     public function __construct()

@@ -64,6 +64,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Ajoutez un écouteur d'événements pour le clic sur le bouton
     saveButton.addEventListener('click', function () {
+        // Récupérez l'ID du menu depuis l'URL
+var urlPathname = window.location.pathname;
+var urlSegments = urlPathname.split('/').filter(segment => segment !== '');
+
+        // Utilisez le nom du paramètre de route Symfony qui contient l'ID du menu
+var menuIdIndex = urlSegments.indexOf('ajouter-pages');
+var menuId = urlSegments[menuIdIndex - 1];
+
+        console.log('Menu ID:', menuId); // Ajoutez cette ligne pour vérifier l'ID du menu récupéré
+
         // Récupérez les pages sélectionnées
         var selectedPages = document.querySelectorAll('.page-checkbox:checked');
 
@@ -72,22 +82,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return checkbox.getAttribute('data-page-id');
         });
 
-        // Récupérez l'ID du menu depuis l'URL
-        var url = new URL(window.location.href);
-
-var urlSegments = url.pathname.split('/').filter(segment => segment !== ''); // Filtrer les segments vides
-var menuId = urlSegments[urlSegments.indexOf('ajouter-pages') - 1]; // Obtenir l'ID situé avant 'ajouter-pages'
-
-
-console.log('Pages sélectionnées :', selectedPageIds); // Ajoutez cette ligne pour vérifier les pages sélectionnées
-
-
+        console.log('Pages sélectionnées :', selectedPageIds); // Ajoutez cette ligne pour vérifier les pages sélectionnées
 
         // Créez un objet pour stocker les données à envoyer
         var dataToSend = {
             pageIds: selectedPageIds
         };
-console.log('Données à envoyer au serveur :', dataToSend);
+        console.log('Données à envoyer au serveur :', dataToSend);
 
         // Envoyez les données au serveur avec AJAX
         fetch('/ajax/save-pages-to-menu/' + menuId, {
@@ -109,6 +110,7 @@ console.log('Données à envoyer au serveur :', dataToSend);
         });
     });
 });
+
     </script>
 
     {% endblock %}

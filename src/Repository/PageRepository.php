@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Page;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Psr\Log\LoggerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends ServiceEntityRepository<Page>
@@ -16,11 +19,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PageRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $logger;
+
+    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger, ManagerRegistry $registry)
     {
         parent::__construct($registry, Page::class);
+        $this->logger = $logger;
     }
-
     public function findActivePages(): array
     {
         $qb = $this->createQueryBuilder('p');
@@ -44,4 +49,26 @@ class PageRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+
+public function findPagesByMenuId(int $menuId): array
+{
+    return $this->createQueryBuilder('p')
+        ->innerJoin('p.pageMenus', 'pm')
+        ->where('pm.id = :menuId')
+        ->setParameter('menuId', $menuId)
+        ->getQuery()
+        ->getResult();
+}
+
+public function findPagesByIds(array $pageIds): array
+{
+    $this->logger->info('Recherche des pages par IDs:', ['pageIds' => $pageIds]);
+
+    return $this->createQueryBuilder('p')
+        ->andWhere('p.id IN (:pageIds)')
+        ->setParameter('pageIds', $pageIds)
+        ->getQuery()
+        ->getResult();
+}
+
 }
