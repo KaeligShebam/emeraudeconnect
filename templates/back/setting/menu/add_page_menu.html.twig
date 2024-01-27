@@ -11,107 +11,105 @@
             <h2>Liste des pages</h2>
             <ul>
                 {% for page in pages %}
-                    <li>
-                        <input type="checkbox" class="page-checkbox" data-page-id="{{ page.title }}">
-                        {{ page.title }}
-                    </li>
+                    {% set isPageInMenu = false %}
+                    {% for pageMenu in pagesMenu %}
+                        {% if page.id == pageMenu.id %}
+                            {% set isPageInMenu = true %}
+                            {# La page est déjà dans le menu, donc ne l'affichez pas dans la liste #}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not isPageInMenu %}
+                        <li>
+                            <input type="checkbox" class="page-checkbox" data-page-id="{{ page.id }}" data-page-title="{{ page.title }}">
+                            {{ page.title }}
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
 
         <div class="menus-container">
-            <h2>Menu Container</h2>
+            <h2>Page en cours d'ajout</h2>
             <!-- Zone pour afficher les menus sélectionnés -->
-
         </div>
 
-<ul>
-    {% for page in pagesMenu %}
-        <li>{{ page.title }}</li>
-    {% endfor %}
-</ul>
+        <ul>
+            {% for page in pagesMenu %}
+                <li data-page-id="{{ page.id }}">
+                    {{ page.title }}
+                    <a href="{{ path('remove_page_from_menu', {'menuId': menu.id, 'pageId': page.id}) }}">Supprimer</a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
     <button type="button" id="saveButton">Ajouter les pages</button>
 
     <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Sélectionnez tous les éléments checkbox avec la classe 'page-checkbox'
-    var checkboxes = document.querySelectorAll('.page-checkbox');
+        document.addEventListener('DOMContentLoaded', function () {
+            var checkboxes = document.querySelectorAll('.page-checkbox');
+            var menuContainer = document.querySelector('.menus-container');
+            var saveButton = document.getElementById('saveButton');
 
-    // Sélectionnez la div pour afficher les menus sélectionnés
-    var menuContainer = document.querySelector('.menus-container');
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    if (checkbox.checked) {
+                        var pageId = checkbox.getAttribute('data-page-id');
+                        var pageTitle = checkbox.getAttribute('data-page-title');
+                        
+                        var menuElement = document.createElement('div');
+                        menuElement.textContent = pageTitle;  // Utilisez pageTitle au lieu de pageId
+                        menuElement.setAttribute('data-page-id', pageId);
+                        menuContainer.appendChild(menuElement);
+                    } else {
+                        var pageId = checkbox.getAttribute('data-page-id');
+                        var menuElementToRemove = menuContainer.querySelector('div[data-page-id="' + pageId + '"]');
+                        if (menuElementToRemove) {
+                            menuContainer.removeChild(menuElementToRemove);
+                        }
+                    }
+                });
+            });
 
-    // Ajoutez un écouteur d'événements pour chaque case à cocher
-    checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            // Si la case à cocher est cochée, ajoutez le menu à la div
-            if (checkbox.checked) {
-                var pageId = checkbox.getAttribute('data-page-id');
-                var menuElement = document.createElement('div');
-                menuElement.textContent = pageId; // Remplacez par le texte approprié
-                menuContainer.appendChild(menuElement);
-            }
-            // Si la case à cocher est décochée, retirez le menu de la div (si nécessaire)
-            // else {
-            //     // Implémentez la logique pour retirer le menu de la div si nécessaire
-            // }
-        });
-    });
+            saveButton.addEventListener('click', function () {
+                var selectedPages = Array.from(checkboxes)
+                    .filter(function (checkbox) {
+                        return checkbox.checked;
+                    })
+                    .map(function (checkbox) {
+                        return checkbox.getAttribute('data-page-id');
+                    });
 
-    // Sélectionnez le bouton d'enregistrement
-    var saveButton = document.getElementById('saveButton');
+                var menuId = extractMenuIdFromUrl();
 
-    // Ajoutez un écouteur d'événements pour le clic sur le bouton
-    saveButton.addEventListener('click', function () {
-        // Récupérez l'ID du menu depuis l'URL
-var urlPathname = window.location.pathname;
-var urlSegments = urlPathname.split('/').filter(segment => segment !== '');
+                fetch('/add_pages_to_menu/' + menuId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ pageIds: selectedPages }),
+                })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Failed to add pages to menu');
+                        }
+                        console.log('Pages added to menu successfully');
+                    })
+                    .catch(function (error) {
+                        console.error(error.message);
+                    });
+            });
 
-        // Utilisez le nom du paramètre de route Symfony qui contient l'ID du menu
-var menuIdIndex = urlSegments.indexOf('ajouter-pages');
-var menuId = urlSegments[menuIdIndex - 1];
-
-        console.log('Menu ID:', menuId); // Ajoutez cette ligne pour vérifier l'ID du menu récupéré
-
-        // Récupérez les pages sélectionnées
-        var selectedPages = document.querySelectorAll('.page-checkbox:checked');
-
-        // Récupérez les IDs des pages sélectionnées
-        var selectedPageIds = Array.from(selectedPages).map(function (checkbox) {
-            return checkbox.getAttribute('data-page-id');
-        });
-
-        console.log('Pages sélectionnées :', selectedPageIds); // Ajoutez cette ligne pour vérifier les pages sélectionnées
-
-        // Créez un objet pour stocker les données à envoyer
-        var dataToSend = {
-            pageIds: selectedPageIds
-        };
-        console.log('Données à envoyer au serveur :', dataToSend);
-
-        // Envoyez les données au serveur avec AJAX
-        fetch('/ajax/save-pages-to-menu/' + menuId, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', // Changez le type de contenu à JSON
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify(dataToSend), // Convertissez l'objet en chaîne JSON
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Réponse du serveur:', data);
-            if (data.success) {
-                console.log('Enregistrement réussi:', data.message);
-            } else {
-                console.error('Échec de l\'enregistrement:', data.message);
+            function extractMenuIdFromUrl() {
+                var path = window.location.pathname;
+                var parts = path.split('/').filter(Boolean);
+                var menuId = parts[parts.length - 1];
+                console.log('Extracted menuId:', menuId);
+                return menuId;
             }
         });
-    });
-});
-
     </script>
 
-    {% endblock %}
+{% endblock %}
 {% endblock %}

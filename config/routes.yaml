@@ -3,3 +3,13 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+add_pages_to_menu:
+    path: '/add_pages_to_menu/{menuId}'
+    controller: 'App\Controller\Back\Setting\Menu\AddPageOnMenuController::addPagesToMenu'
+    methods: ['POST', 'GET']
+    
+remove_page_from_menu:
+  path: '/remove_page_from_menu/{menuId}/{pageId}'
+  controller: 'App\Controller\Back\Setting\Menu\RemovePageFromMenuController::removePageFromMenu'
+  methods: ['GET']

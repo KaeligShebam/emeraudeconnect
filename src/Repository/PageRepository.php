@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class PageRepository extends ServiceEntityRepository
 {
-    private $logger;
+    private readonly LoggerInterface $logger;
 
     public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger, ManagerRegistry $registry)
     {
@@ -50,25 +50,14 @@ class PageRepository extends ServiceEntityRepository
         ->getResult();
     }
 
-public function findPagesByMenuId(int $menuId): array
-{
-    return $this->createQueryBuilder('p')
-        ->innerJoin('p.pageMenus', 'pm')
-        ->where('pm.id = :menuId')
-        ->setParameter('menuId', $menuId)
-        ->getQuery()
-        ->getResult();
-}
-
-public function findPagesByIds(array $pageIds): array
-{
-    $this->logger->info('Recherche des pages par IDs:', ['pageIds' => $pageIds]);
-
-    return $this->createQueryBuilder('p')
-        ->andWhere('p.id IN (:pageIds)')
-        ->setParameter('pageIds', $pageIds)
-        ->getQuery()
-        ->getResult();
-}
+    public function findPagesByMenuId(int $menuId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.pageMenus', 'pm')
+            ->where('pm.id = :menuId')
+            ->setParameter('menuId', $menuId)
+            ->getQuery()
+            ->getResult();
+    }
 
 }

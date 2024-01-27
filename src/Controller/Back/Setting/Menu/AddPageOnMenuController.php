@@ -1,69 +1,72 @@
 <?php
 
- 
-
-declare(strict_types=1);
-
- 
-
 namespace App\Controller\Back\Setting\Menu;
 
- 
-
-use App\Entity\PageMenu;
-use Psr\Log\LoggerInterface;
-use App\Repository\PageRepository;
-use App\Repository\PageMenuRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\PageMenu;
+use App\Entity\Page;
+use Doctrine\Persistence\ManagerRegistry;
 
-final class AddPageOnMenuController extends AbstractController
-
+class AddPageOnMenuController extends AbstractController
 {
-    public function __construct(
-        private readonly LoggerInterface $logger,
-        private readonly PageRepository $pageRepository,
-        private readonly PageMenuRepository $pageMenuRepository,
-        private readonly EntityManagerInterface $entityManager
+    private $doctrine;
 
-    ){}
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
 
-    #[Route('/ajax/save-pages-to-menu/{id}', name: 'ajax_save_pages_to_menu')]
-    public function __invoke(PageMenu $menu,Request $request, PageMenuRepository $pageMenuRepository): JsonResponse {
+    /**
+    * @Route("/add_pages_to_menu/{menuId}", name="add_pages_to_menu", methods={"GET", "POST"})
+     */
+    public function addPagesToMenu(Request $request, $menuId): Response
+    {
+        $data = json_decode($request->getContent(), true);
 
-        $data = json_decode($request->getContent(),true);
-
-        // Tu peux utiliser un validator via Validation::createValidator() et employer les constraints SF si tu veux.
-
-        if (!isset($data['pageIds']) || !is_array($data['pageIds']) || empty($data['pageIds'])) {
-
-            return $this->json(
-                ['error' => 'Les IDs des pages n\'ont pas été fournis ou sont invalides.'],
-                JsonResponse::HTTP_BAD_REQUEST
-            );
-
+        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+            $errorMessage = 'JSON decoding error: ' . json_last_error_msg();
+            // Ajoutez ce message à la réponse pour le voir dans la console du navigateur
+            return new Response($errorMessage, Response::HTTP_BAD_REQUEST);
         }
-        $this->logger->info('IDs des pages reçus depuis la requête:', ['pageIds' => $data['pageIds']]);
-        $selectedPages = $this->pageRepository->findPagesByIds([1]);
+        
 
-        foreach ($selectedPages as $page) {
-            $this->logger->info('Page liée au menu, ID de la page : ' . $page->getId());
+       // $data = json_decode('{"pageIds":["7"]}', true);
+    
+        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+            // Ajoutez un message de débogage pour afficher l'erreur JSON
+            echo 'JSON decoding error: ' . json_last_error_msg();
+            return new Response('Invalid data format', Response::HTTP_BAD_REQUEST);
+        }
+
+        $entityManager = $this->doctrine->getManager();
+        $menu = $entityManager->getRepository(PageMenu::class)->find($menuId);
+
+        if (!$menu) {
+            return new Response('Menu not found', Response::HTTP_NOT_FOUND);
+        }
+
+        $pageIds = $data['pageIds'];
+
+        foreach ($pageIds as $pageId) {
+            $page = $entityManager->getRepository(Page::class)->find($pageId);
+        
+            if (!$page) {
+                return new Response('Page not found for id: ' . $pageId, Response::HTTP_NOT_FOUND);
+            }
+        
+            // Check if the page is already in the menu
+            if ($menu->getPages()->contains($page)) {
+                continue;  // Ignorer cette page et passer à la suivante
+            }
+        
             $menu->addPage($page);
         }
 
-        
-        $this->entityManager->persist($menu);
-        $this->entityManager->flush();
+        $entityManager->flush();
 
-        return $this->json(['success' => true,'message' => 'Enregistrement réussi.']);
-
+        return new Response('Pages added to menu successfully', Response::HTTP_OK);
     }
-
 }

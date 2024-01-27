@@ -43,10 +43,9 @@ class Page
 
     #[ORM\Column(nullable: true)]
     private ?bool $isDeleted = null;
-    
-    #[ORM\ManyToMany(targetEntity: PageMenu::class, mappedBy: 'pages', cascade: ['persist', 'remove'])]
+
+    #[ORM\ManyToMany(targetEntity: PageMenu::class, mappedBy: 'pages')]
     private Collection $pageMenus;
-    
 
     public function __construct()
     {
