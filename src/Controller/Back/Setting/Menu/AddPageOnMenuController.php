@@ -67,6 +67,5 @@ class AddPageOnMenuController extends AbstractController
 
         $entityManager->flush();
 
-        return new Response('Pages added to menu successfully', Response::HTTP_OK);
     }
 }

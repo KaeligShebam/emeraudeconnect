@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UpdatePositionPageMenu extends AbstractController
 {
-    #[Route('/update_page_position', name: 'update_page_position')]
+    #[Route('//update_page_position', name: 'update_page_position')]
     public function updatePagePosition(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);

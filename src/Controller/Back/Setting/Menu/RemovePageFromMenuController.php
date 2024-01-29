@@ -43,6 +43,6 @@ class RemovePageFromMenuController extends AbstractController
         $menu->removePage($page);
         $entityManager->flush();
 
-        return new Response('Page removed from menu successfully', Response::HTTP_OK);
+        return $this->redirectToRoute('app_menu_add_pages', ['id' => $menu->getId()]);
     }
 }
