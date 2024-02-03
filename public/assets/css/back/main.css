@@ -75,13 +75,9 @@ section{margin: 50px;}
 /* END Pages */
 
 /* Menu */
-.page-list{
-  width: fit-content;
-  background: var(--color-white);
-}
+.page-list{width: fit-content;background: var(--color-white);}
 .page-list ul li{list-style: none;}
 
-/* Style pour les boutons d'ajout de menus et les menus ajoutés */
 .menus-container {
   margin-top: 20px;
 }
@@ -90,12 +86,62 @@ section{margin: 50px;}
   margin-right: 10px;
 }
 
-.menu-entry {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 8px;
+.menu-entry {background-color: #d4edda;color: #155724;padding: 8px;
   margin-top: 5px;
   border: 1px solid #c3e6cb;
   border-radius: 5px;
 }
+.menu-list{list-style: none;color: var(--color-white);}
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.page-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-green-light-dark);
+  border-radius: 5px;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+
+.page-checkbox:checked {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  transform-origin: bottom right;
+  transition: transform 0.3s;
+  display: none;
+}
+
+.page-checkbox:checked + .checkmark {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  display: block;
+}
+
+.menu-list li {
+  margin-bottom: 10px;
+}

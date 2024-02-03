@@ -10,6 +10,8 @@ Boutons:
     btn_trash_page: Corbeille
     btn_return_page: Retour
     btn_sitemap_page: 'Voir le sitemap'
+    btn_add_pages: 'Ajouter des pages'
+    no_page_selected: 'Aucune page selectionnée'
 Pages:
     success_add_page: 'La page a bien été ajoutée !'
     success_edit_page: 'La page a été mise à jour !'

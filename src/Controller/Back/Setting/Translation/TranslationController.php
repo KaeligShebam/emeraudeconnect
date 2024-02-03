@@ -29,7 +29,7 @@ class TranslationController extends AbstractController
 
         $addButtonTranslate = $this->translationService->findTranslation('btn_add_translate');
 
-        return $this->render('back/settings/translation/index.html.twig', [
+        return $this->render('back/setting/translation/index.html.twig', [
             'content' => $content,
             'addButtonTranslate' => $addButtonTranslate,
         ]);
