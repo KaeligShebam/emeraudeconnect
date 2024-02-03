@@ -113,7 +113,7 @@ section{margin: 50px;}
   position: relative;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-right: 10px;
+  margin: 0 10px 5px 0;
 }
 
 .page-checkbox:checked {
