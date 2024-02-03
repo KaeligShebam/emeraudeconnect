@@ -30,10 +30,6 @@
                 </ul>
             </div>
 
-            <div class="menus-container" id="menusContainer">
-                {# La section "Page en cours d'ajout" sera ajoutée dynamiquement ici #}
-            </div>
-
             <div class="pages-list">
                 <h2 class="mb-4">Page ajoutée(s)</h2>
                 <ul>
@@ -49,79 +45,72 @@
         </div>
 
         <button class="form-button" type="button" id="saveButton">
-            {% if pagesMenu|length == 1 %}
-                {{ btn_add_page }}
-            {% elseif pagesMenu|length > 1 %}
-                {{ btn_add_pages }}
-            {% else %}
-                {{ no_page_selected }}
-            {% endif %}
+            {{ no_page_selected }}
         </button>
 
+
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var checkboxes = document.querySelectorAll('.page-checkbox');
-                var saveButton = document.getElementById('saveButton');
-                var addingPageSection = document.createElement('div');
-                addingPageSection.setAttribute('id', 'addingPageSection');
+document.addEventListener('DOMContentLoaded', function () {
+    var checkboxes = document.querySelectorAll('.page-checkbox');
+    var saveButton = document.getElementById('saveButton');
+    var addingPageSection = document.createElement('div');
+    addingPageSection.setAttribute('id', 'addingPageSection');
 
-                checkboxes.forEach(function (checkbox) {
-                    checkbox.addEventListener('change', function () {
-                        var selectedPages = Array.from(checkboxes)
-                            .filter(function (checkbox) {
-                                return checkbox.checked;
-                            });
-
-                        if (selectedPages.length > 0) {
-                            // Afficher la section "Page en cours d'ajout"
-                            addingPageSection.innerHTML = '<h2>{{ btn_add_page }}</h2>';
-                        } else {
-                            // Afficher "Aucune page sélectionnée" si aucune page n'est sélectionnée
-                            addingPageSection.innerHTML = '<p>{{ no_page_selected }}</p>';
-                        }
-
-                        // Ajuster le texte du bouton en fonction du nombre de pages sélectionnées
-                        saveButton.textContent = selectedPages.length === 1 ? '{{ btn_add_page }}' : (selectedPages.length > 1 ? '{{ btn_add_pages }}' : '{{ no_page_selected }}');
-                    });
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            var selectedPages = Array.from(checkboxes)
+                .filter(function (checkbox) {
+                    return checkbox.checked;
                 });
 
-                saveButton.addEventListener('click', function () {
-                    var selectedPages = Array.from(checkboxes)
-                        .filter(function (checkbox) {
-                            return checkbox.checked;
-                        })
-                        .map(function (checkbox) {
-                            return checkbox.getAttribute('data-page-id');
-                        });
 
-                    var menuId = extractMenuIdFromUrl();
+            // Ajuster le texte du bouton en fonction du nombre de pages sélectionnées
+            saveButton.textContent = selectedPages.length === 1 ? '{{ btn_add_page }}' : (selectedPages.length > 1 ? '{{ btn_add_pages }}' : '{{ no_page_selected }}');
+        });
+    });
 
-                    fetch('/add_pages_to_menu/' + menuId, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ pageIds: selectedPages }),
-                    })
-                        .then(function (response) {
-                            if (!response.ok) {
-                                throw new Error('{{ 'Failed to add pages to menu'|trans }}');
-                            }
-                            location.reload();
-                        })
-                        .catch(function (error) {
-                            console.error(error.message);
-                        });
-                });
-
-                function extractMenuIdFromUrl() {
-                    var path = window.location.pathname;
-                    var parts = path.split('/').filter(Boolean);
-                    var menuId = parts[parts.length - 1];
-                    console.log('Extracted menuId:', menuId);
-                    return menuId;
-                }
+    saveButton.addEventListener('click', function () {
+        var selectedPages = Array.from(checkboxes)
+            .filter(function (checkbox) {
+                return checkbox.checked;
+            })
+            .map(function (checkbox) {
+                return checkbox.getAttribute('data-page-id');
             });
+
+        var menuId = extractMenuIdFromUrl();
+
+        fetch('/add_pages_to_menu/' + menuId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ pageIds: selectedPages }),
+        })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('{{ 'Failed to add pages to menu'|trans }}');
+                }
+                location.reload();
+            })
+            .catch(function (error) {
+                console.error(error.message);
+            });
+    });
+
+    function extractMenuIdFromUrl() {
+        var path = window.location.pathname;
+        var parts = path.split('/').filter(Boolean);
+        var menuId = parts[parts.length - 1];
+        console.log('Extracted menuId:', menuId);
+        return menuId;
+    }
+
+    // Ajouter addingPageSection à un élément existant sur la page, par exemple le body
+    var body = document.querySelector('body');
+    body.appendChild(addingPageSection);
+});
+
 
         </script>
     {% endblock %}
