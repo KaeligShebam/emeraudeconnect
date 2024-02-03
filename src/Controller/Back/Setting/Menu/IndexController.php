@@ -48,9 +48,9 @@ class IndexController extends AbstractController
             'pages' => $pages,
             'pagesMenu' => $pagesMenu,
             'menu' => $menu,
-            'translationBtnAddPages' => $translationBtnAddPages,
-            'translationBtnAddPage' => $translationBtnAddPage,
-            'translationNoPageSelected' => $translationNoPageSelected,
+            'btn_add_apge' => $translationBtnAddPages,
+            'btn_add_apges' => $translationBtnAddPage,
+            'no_page_selected' => $translationNoPageSelected,
         ]);
     }
 }

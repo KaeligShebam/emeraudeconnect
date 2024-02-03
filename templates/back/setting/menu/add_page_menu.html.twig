@@ -50,11 +50,11 @@
 
         <button class="form-button" type="button" id="saveButton">
             {% if pagesMenu|length == 1 %}
-                {{ translationBtnAddPage }}
+                {{ btn_add_page }}
             {% elseif pagesMenu|length > 1 %}
-                {{ translationBtnAddPages }}
+                {{ btn_add_pages }}
             {% else %}
-                {{ translationNoPageSelected }}
+                {{ no_page_selected }}
             {% endif %}
         </button>
 
@@ -74,14 +74,14 @@
 
                         if (selectedPages.length > 0) {
                             // Afficher la section "Page en cours d'ajout"
-                            addingPageSection.innerHTML = '<h2>{{ 'btn_add_page'|trans }}</h2>';
+                            addingPageSection.innerHTML = '<h2>{{ btn_add_page }}</h2>';
                         } else {
                             // Afficher "Aucune page sélectionnée" si aucune page n'est sélectionnée
-                            addingPageSection.innerHTML = '<p>{{ 'no_page_selected'|trans }}</p>';
+                            addingPageSection.innerHTML = '<p>{{ no_page_selected }}</p>';
                         }
 
                         // Ajuster le texte du bouton en fonction du nombre de pages sélectionnées
-                        saveButton.textContent = selectedPages.length === 1 ? '{{ translationBtnAddPage }}' : (selectedPages.length > 1 ? '{{ translationBtnAddPages }}' : '{{ translationNoPageSelected }}');
+                        saveButton.textContent = selectedPages.length === 1 ? '{{ btn_add_page }}' : (selectedPages.length > 1 ? '{{ btn_add_pages }}' : '{{ no_page_selected }}');
                     });
                 });
 
