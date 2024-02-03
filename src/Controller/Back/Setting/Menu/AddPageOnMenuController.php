@@ -23,51 +23,55 @@ class AddPageOnMenuController extends AbstractController
     }
 
     /**
-     * @Route("/add_pages_to_menu/{menuId}", name="add_pages_to_menu", methods={"POST"})
+    * @Route("/add_pages_to_menu/{menuId}", name="add_pages_to_menu", methods={"GET", "POST"})
      */
     public function addPagesToMenu(Request $request, $menuId): Response
     {
+        $data = json_decode($request->getContent(), true);
+        $translationbBtnAddPages = $this->translationService->findTranslation('btn_add_pages');
+
+        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+            $errorMessage = 'JSON decoding error: ' . json_last_error_msg();
+            return new Response($errorMessage, Response::HTTP_BAD_REQUEST);
+        }
+    
+        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+            echo 'JSON decoding error: ' . json_last_error_msg();
+            return new Response('Invalid data format', Response::HTTP_BAD_REQUEST);
+        }
+
         $entityManager = $this->doctrine->getManager();
         $menu = $entityManager->getRepository(PageMenu::class)->find($menuId);
-    
+
         if (!$menu) {
             return new Response('Menu not found', Response::HTTP_NOT_FOUND);
         }
-    
-        $data = json_decode($request->getContent(), true);
-    
-        if ($data === null || json_last_error() !== JSON_ERROR_NONE) {
-            return new Response('Invalid JSON data', Response::HTTP_BAD_REQUEST);
-        }
-    
+
         $pageIds = $data['pageIds'];
-    
+
         foreach ($pageIds as $pageId) {
             $page = $entityManager->getRepository(Page::class)->find($pageId);
-    
+        
             if (!$page) {
                 return new Response('Page not found for id: ' . $pageId, Response::HTTP_NOT_FOUND);
             }
-    
-            // Check if the page is already in the menu
+        
             if ($menu->getPages()->contains($page)) {
                 continue;
             }
-    
+        
             $menu->addPage($page);
         }
-    
+
         try {
+
             $entityManager->flush();
+            return $this->redirectToRoute('app_menu_add_pages', ['id' => $menu->getId()]);
+
         } catch (\Exception $e) {
-            // Handle errors and display an error message if necessary
-            $this->addFlash('error', 'Failed to add pages to menu: ' . $e->getMessage());
-    
-            // Redirect user to the same page
-            return $this->redirectToRoute('nom_de_la_route_pour_cette_page');
+
+            return $this->redirectToRoute('app_menu_add_pages', ['id' => $menu->getId()]);
         }
-    
+
     }
-    
-    
 }
