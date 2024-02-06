@@ -22,8 +22,7 @@
                     {% for menu in menus %}
                         <tr>
                             <td>{{ menu.name }}</td>
-                            <td>          <a href="{{ path('app_menu_add_pages', {'id': menu.id}) }}"><i class="text-white fa-solid fa-eye" aria-hidden="true"></i></a></td>
-
+                            <td><a href="{{ path('app_menu_add_pages', {'id': menu.id}) }}"><i class="text-white fa-solid fa-eye" aria-hidden="true"></i></a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
