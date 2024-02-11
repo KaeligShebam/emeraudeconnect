@@ -18,8 +18,14 @@ class PageMenu
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Page::class, inversedBy: 'pageMenus', cascade: ["persist", "remove", "merge"])]
-    private Collection $pages;
+    /**
+     * @ORM\ManyToMany(targetEntity=Page::class)
+     * @ORM\JoinTable(name="page_menu_page",
+     *      joinColumns={@ORM\JoinColumn(name="page_menu_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")}
+     *      )
+     */
+    private $pages;
 
     public function __construct()
     {
@@ -44,23 +50,31 @@ class PageMenu
     }
 
     /**
-     * @return Collection<int, Page>
+     * @return Collection|Page[]
      */
     public function getPages(): Collection
     {
-        return $this->pages;
+        // Retourne la collection de pages si elle existe, sinon initialise une nouvelle collection
+        return $this->pages ?? new ArrayCollection();
     }
 
-    public function addPage(Page $page): static
+    public function addPage(Page $page): self
     {
-        if (!$this->pages->contains($page)) {
-            $this->pages->add($page);
+        // Vérifier si la collection pages est null
+        if ($this->pages === null) {
+            // Si elle est null, initialiser avec une nouvelle ArrayCollection
+            $this->pages = new ArrayCollection();
         }
-
+    
+        // Vérifier si la page existe déjà dans la collection
+        if (!$this->pages->contains($page)) {
+            $this->pages[] = $page;
+        }
+    
         return $this;
     }
 
-    public function removePage(Page $page): static
+    public function removePage(Page $page): self
     {
         $this->pages->removeElement($page);
 

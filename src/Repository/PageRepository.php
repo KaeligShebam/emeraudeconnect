@@ -50,14 +50,25 @@ class PageRepository extends ServiceEntityRepository
         ->getResult();
     }
 
-    public function findPagesByMenuId(int $menuId): array
+    public function findPagesNotInMenu(int $menuId): array
     {
         return $this->createQueryBuilder('p')
-            ->innerJoin('p.pageMenus', 'pm')
-            ->where('pm.id = :menuId')
+            ->leftJoin('App\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
+            ->andWhere('pmp.pageMenu != :menuId OR pmp.pageMenu IS NULL')
             ->setParameter('menuId', $menuId)
             ->getQuery()
             ->getResult();
     }
+
+    public function findPagesInMenu(int $menuId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->join('App\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
+            ->andWhere('pmp.pageMenu = :menuId')
+            ->setParameter('menuId', $menuId)
+            ->getQuery()
+            ->getResult();
+    }
+    
 
 }

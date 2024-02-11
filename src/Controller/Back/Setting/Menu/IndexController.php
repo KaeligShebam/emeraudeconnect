@@ -27,26 +27,30 @@ class IndexController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         
-        // Récupérer la liste des pages à partir du repository
-        $pages = $pageRepository->findAll(); // Remplacez cela par la méthode appropriée selon votre logique
-
-        // Retrieve the PageMenu entity by id
+        // Récupérer le menu
         $menu = $pageMenuRepository->find($id);
 
+        // Vérifier si le menu existe
         if (!$menu instanceof PageMenu) {
             throw $this->createNotFoundException('Menu not found');
         }
+        
+        // Récupérer les pages disponibles pour être ajoutées au menu
+        $pages = $pageRepository->findPagesNotInMenu($menu->getId());
 
-        // Access the associated pages
-        $pagesMenu = $menu->getPages();
+        // Récupérer les pages associées au menu
+        $pagesInMenu = $pageRepository->findPagesInMenu($id);
 
+
+        // Récupérer les traductions pour les boutons
         $translationBtnAddPages = $this->translationService->findTranslation('btn_add_pages');
         $translationBtnAddPage = $this->translationService->findTranslation('btn_add_page');
         $translationNoPageSelected = $this->translationService->findTranslation('no_page_selected');
         
+        // Rendre la vue avec les données
         return $this->render('back/setting/menu/add_page_menu.html.twig', [
             'pages' => $pages,
-            'pagesMenu' => $pagesMenu,
+            'pagesMenu' => $pagesInMenu,
             'menu' => $menu,
             'btn_add_pages' => $translationBtnAddPages,
             'btn_add_page' => $translationBtnAddPage,
