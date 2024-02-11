@@ -45,7 +45,6 @@ class PageMenuPage
     {
         return $this->page;
     }
-
     public function setPage(?Page $page): self
     {
         $this->page = $page;
@@ -62,6 +61,14 @@ class PageMenuPage
     {
         $this->position = $position;
 
+        return $this;
+    }
+    public function removePage(Page $page): self
+    {
+        if ($this->getPage() === $page) {
+            $this->setPage(null);
+        }
+    
         return $this;
     }
 }

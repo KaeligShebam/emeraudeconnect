@@ -19,7 +19,7 @@ class PageMenu
     private ?string $name = null;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Page::class)
+     * @ORM\ManyToMany(targetEntity=Page::class, cascade={"remove"})
      * @ORM\JoinTable(name="page_menu_page",
      *      joinColumns={@ORM\JoinColumn(name="page_menu_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")}
@@ -76,8 +76,11 @@ class PageMenu
 
     public function removePage(Page $page): self
     {
-        $this->pages->removeElement($page);
-
+        // Vérifiez d'abord si $this->pages est nulle
+        if ($this->pages instanceof ArrayCollection) {
+            $this->pages->removeElement($page);
+        }
+        
         return $this;
-    }
+    } 
 }
