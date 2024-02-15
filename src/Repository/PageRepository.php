@@ -66,6 +66,7 @@ class PageRepository extends ServiceEntityRepository
             ->join('App\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
             ->andWhere('pmp.pageMenu = :menuId')
             ->setParameter('menuId', $menuId)
+            ->orderBy('pmp.position', 'ASC') // Ordonner par position croissante
             ->getQuery()
             ->getResult();
     }

@@ -6,48 +6,90 @@
 {% block body %}
     {% block content %}
 
-<div class="container">
-    <div class="pages-list">
-        <h2 class="mb-4">Liste des pages</h2>
-        <ul>
-            {% for page in pages %}
-                {% set isPageInMenu = false %}
-                {% for pageMenu in pagesMenu %}
-                    {% if page.id == pageMenu.id %}
-                        {% set isPageInMenu = true %}
-                    {% endif %}
-                {% endfor %}
+        <div class="container">
+            <div class="pages-list">
+                <h2 class="mb-4">Liste des pages</h2>
+                <ul>
+                    {% for page in pages %}
+                        {% set isPageInMenu = false %}
+                        {% for pageMenu in pagesMenu %}
+                            {% if page.id == pageMenu.id %}
+                                {% set isPageInMenu = true %}
+                            {% endif %}
+                        {% endfor %}
 
-                {% if not isPageInMenu %}
-                    <li class="menu-list">
-                        <div class="checkbox-container">
-                            <input type="checkbox" class="page-checkbox" id="checkbox{{ page.id }}" aria-checked="false" data-page-id="{{ page.id }}" data-page-title="{{ page.title }}">
-                            <label for="checkbox{{ page.id }}">{{ page.title }}</label>
-                        </div>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
+                        {% if not isPageInMenu %}
+                            <li class="menu-list">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" class="page-checkbox" id="checkbox{{ page.id }}" aria-checked="false" data-page-id="{{ page.id }}" data-page-title="{{ page.title }}">
+                                    <label for="checkbox{{ page.id }}">{{ page.title }}</label>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
 
-    <div class="">
-        <h2 class="mb-4">Page ajoutée(s)</h2>
-        <ul>
-            {% for pageMenu in pagesMenu %}
-                <li class="menu-list" data-page-id="{{ pageMenu.id }}">
-                    <i class="fa-regular fa-circle"></i> {{ pageMenu.title }}
-                    <span>/</span>
-                    <a href="{{ path('remove_page_from_menu', {'menuId': menu.id, 'pageId': pageMenu.id}) }}"><i class="text-white fa-solid fa-trash"></i></a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
+            <div>
+                <h2 class="mb-4">Page ajoutée(s)</h2>
+                <ul id="sortable-menu">
+                    {% for pageMenu in pagesMenu %}
+                        <li class="menu-list" data-page-id="{{ pageMenu.id }}">
+                            <i class="fa-regular fa-circle"></i> {{ pageMenu.title }}
+                            <span>/</span>
+                            <a href="{{ path('remove_page_from_menu', {'menuId': menu.id, 'pageId': pageMenu.id}) }}"><i class="text-white fa-solid fa-trash"></i></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
 
         <button class="form-button" type="button" id="saveButton">
             {{ no_page_selected }}
         </button>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+
+        <script>
+$(function () {
+    $("#sortable-menu").sortable({
+        update: function (event, ui) {
+            var menuItems = [];
+            $("#sortable-menu .menu-list").each(function (index) {
+                var pageId = $(this).data('page-id');
+                if (typeof pageId !== 'undefined') {
+                    var menuItem = {
+                        page_id: pageId,
+                        position: index + 1
+                    };
+                    menuItems.push(menuItem);
+                }
+            });
+
+            // console.log("Menu items before sending AJAX request:", menuItems); // Log des données avant l'envoi de la requête AJAX
+
+            $.ajax({
+                url: "{{ path('update_menu_position') }}",
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(menuItems),
+                success: function (response) {
+                    // console.log("Response from server:", response);
+                },
+                error: function (xhr, status, error) {
+                    // console.error("Error while sending AJAX request:", xhr.responseText); // Log de l'erreur en cas d'échec de la requête AJAX
+                }
+            });
+        }
+    });
+});
+
+
+
+
+
+        </script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var checkboxes = document.querySelectorAll('.page-checkbox');

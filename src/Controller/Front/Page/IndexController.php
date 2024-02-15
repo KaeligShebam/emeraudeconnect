@@ -19,7 +19,7 @@ class IndexController extends AbstractController
         $this->translationService = $translationService;
     }
 
-    #[Route("/{slug}", name:"app_page")]
+    #[Route("/{slug}", name:"app_page", methods: ['GET'], priority: -1)]
     public function detail(string $slug, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
