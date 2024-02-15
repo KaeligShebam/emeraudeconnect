@@ -52,43 +52,38 @@
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
 
         <script>
-$(function () {
-    $("#sortable-menu").sortable({
-        update: function (event, ui) {
-            var menuItems = [];
-            $("#sortable-menu .menu-list").each(function (index) {
-                var pageId = $(this).data('page-id');
-                if (typeof pageId !== 'undefined') {
-                    var menuItem = {
-                        page_id: pageId,
-                        position: index + 1
-                    };
-                    menuItems.push(menuItem);
-                }
+            $(function () {
+                $("#sortable-menu").sortable({
+                    update: function (event, ui) {
+                        var menuItems = [];
+                        $("#sortable-menu .menu-list").each(function (index) {
+                            var pageId = $(this).data('page-id');
+                            if (typeof pageId !== 'undefined') {
+                                var menuItem = {
+                                    page_id: pageId,
+                                    position: index + 1
+                                };
+                                menuItems.push(menuItem);
+                            }
+                        });
+
+                        // console.log("Menu items before sending AJAX request:", menuItems); // Log des données avant l'envoi de la requête AJAX
+
+                        $.ajax({
+                            url: "{{ path('update_menu_position') }}",
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(menuItems),
+                            success: function (response) {
+                                // console.log("Response from server:", response);
+                            },
+                            error: function (xhr, status, error) {
+                                // console.error("Error while sending AJAX request:", xhr.responseText); // Log de l'erreur en cas d'échec de la requête AJAX
+                            }
+                        });
+                    }
+                });
             });
-
-            // console.log("Menu items before sending AJAX request:", menuItems); // Log des données avant l'envoi de la requête AJAX
-
-            $.ajax({
-                url: "{{ path('update_menu_position') }}",
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(menuItems),
-                success: function (response) {
-                    // console.log("Response from server:", response);
-                },
-                error: function (xhr, status, error) {
-                    // console.error("Error while sending AJAX request:", xhr.responseText); // Log de l'erreur en cas d'échec de la requête AJAX
-                }
-            });
-        }
-    });
-});
-
-
-
-
-
         </script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
