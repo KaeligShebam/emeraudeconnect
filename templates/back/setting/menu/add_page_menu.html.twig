@@ -22,15 +22,17 @@
                             <li class="menu-list">
                                 <div class="checkbox-container">
                                     <input type="checkbox" class="page-checkbox" id="checkbox{{ page.id }}" aria-checked="false" data-page-id="{{ page.id }}" data-page-title="{{ page.title }}">
-                                    <label for="checkbox{{ page.id }}">{{ page.title }}</label>
+                                    <label class="label" for="checkbox{{ page.id }}">{{ page.title }}</label>
                                 </div>
                             </li>
                         {% endif %}
                     {% endfor %}
                 </ul>
+                <button class="form-button" type="button" id="saveButton">
+                    {{ no_page_selected }}
+                </button>
             </div>
-
-            <div>
+            <div class="pages-list-added">
                 <h2 class="mb-4">Page ajoutée(s)</h2>
                 <ul id="sortable-menu">
                     {% for pageMenu in pagesMenu %}
@@ -42,11 +44,8 @@
                     {% endfor %}
                 </ul>
             </div>
-        </div>
 
-        <button class="form-button" type="button" id="saveButton">
-            {{ no_page_selected }}
-        </button>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
