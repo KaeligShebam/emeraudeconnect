@@ -5,15 +5,39 @@
 
 {% block body %}
     {% block content %}
-    <i class="fa-solid fa-plus text-center color-white"></i>
-        {% if hooks is not empty %}
-            <ul>
-                {% for hook in hooks %}
-                    <li>{{ hook.name }} - {{ hook.description }}</li>
-                {% endfor %}
-            </ul>
+    <div class="text-center"><a href="{{ path('app_hook_add_admin') }}"><i class="fa-solid fa-plus text-white"></i></a></div>
+        {% if hooks %}
+            <section>
+                <div class="tbl-header">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                            <tr>
+                                <th>Nom du hook</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tbl-content">
+                    <table cellpadding="0" cellspacing="0" border="0" valign="center">
+                        <tbody class="text-center">
+                            {% for hook in hooks %}
+                                <tr>
+                                    <td>{{ hook.name }}</td>
+                                    <td>{{ hook.description }}</td>
+                                    <td>
+                                        <a href=""><i class="text-white fa-regular fa-pen-to-square"></i></a>
+                                        <a href="" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette page ? Elle sera mise dans la corbeille')"><i class="text-white fa-regular fa-trash-can"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         {% else %}
-            <p>Aucun hook créé</p>
+            <p>Vous n'avez pas encore créé de hook.</p>
         {% endif %}
     {% endblock %}
 {% endblock %}

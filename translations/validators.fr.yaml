@@ -18,3 +18,5 @@ Pages:
     see_page: 'Voir la page'
 'Pages Erreurs':
     error_404: 'La page a été supprimée ou est inaccessible !'
+"Points d'accroches":
+    success_add_hook: 'Le hook a bien été ajouté !'

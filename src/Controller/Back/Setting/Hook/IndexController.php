@@ -9,9 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
-    /**
-     * @Route("/admin/points-accroches", name="hook_admin")
-     */
     #[Route('/admin/points-accroches', name: 'app_hook_admin')]
     public function index(HookRepository $hookRepository): Response
     {

@@ -1,0 +1,24 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Points d'accroches {{ parent() }}{% endblock %}
+{% block pageTitle %}Points d'accroches {% endblock %}
+
+{% block body %}
+    {% block content %}
+    <div class="container">
+        <div class="main-column">
+            {% if successMessage %}
+                <div class="success-alert-message">
+                    {{ successMessage | raw }}
+                </div>
+            {% endif %}
+            {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.submit) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    {% endblock %}
+{% endblock %}
