@@ -46,8 +46,7 @@ class IndexController extends AbstractController
         $translationBtnAddPages = $this->translationService->findTranslation('btn_add_pages');
         $translationBtnAddPage = $this->translationService->findTranslation('btn_add_page');
         $translationNoPageSelected = $this->translationService->findTranslation('no_page_selected');
-        
-        // Rendre la vue avec les données
+
         return $this->render('back/setting/menu/add_page_menu.html.twig', [
             'pages' => $pages,
             'pagesMenu' => $pagesInMenu,
