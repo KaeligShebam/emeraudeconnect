@@ -123,10 +123,6 @@ select {
   padding-right: 24px; /* Ajuster le rembourrage à droite pour laisser de la place à la flèche */
 }
 
-
-
-/* styles.css */
-
 .frame {display: flex;flex-direction: column;border: 1px solid var(--color-white);padding: 20px;align-content: center;}
 .module-info {display: flex;justify-content: space-between;text-align: left !important;}
 .module-info-left {flex-grow: 1;border-right: 1px solid var(--color-white); text-align: left !important;}
@@ -134,4 +130,3 @@ select {
 .module-description, .module-version {color: var(--color-white);text-align: left !important;}
 .module-info-right {margin-left: 20px;}
 
-/* Ajoutez d'autres styles CSS selon vos besoins */

@@ -3,8 +3,8 @@
 namespace App\Controller\Back\Setting\Menu;
 
 use App\Entity\Page;
-use App\Entity\PageMenu;
-use App\Entity\PageMenuPage; // Importez l'entité PageMenuPage
+use App\Modules\NavigationMenu\Entity\PageMenu;
+use App\Modules\NavigationMenu\Entity\PageMenuPage;
 use App\Service\TranslationService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Back\Setting\Menu;
 
-use App\Entity\PageMenuPage;
+use App\Modules\NavigationMenu\Entity\PageMenuPage;
 use App\Repository\PageMenuPageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;

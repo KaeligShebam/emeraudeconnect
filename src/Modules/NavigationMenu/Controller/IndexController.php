@@ -2,7 +2,7 @@
 
 namespace App\Controller\Back\Setting\Menu;
 
-use App\Entity\PageMenu;
+use App\Modules\NavigationMenu\Entity\PageMenu;
 use App\Repository\PageRepository;
 use App\Service\TranslationService;
 use App\Repository\PageMenuRepository;

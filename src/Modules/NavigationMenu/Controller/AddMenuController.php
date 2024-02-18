@@ -3,7 +3,7 @@
 namespace App\Controller\Back\Setting\Menu;
 
 use App\Entity\Page;
-use App\Entity\PageMenu;
+use App\Modules\NavigationMenu\Entity\PageMenu;
 use App\Repository\PageRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Form\Back\Setting\Menu\AddMenuType;
