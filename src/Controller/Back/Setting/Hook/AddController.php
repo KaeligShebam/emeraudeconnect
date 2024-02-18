@@ -20,6 +20,7 @@ class AddController extends AbstractController
     {
         $this->translationService = $translationService;
     }
+    
     #[Route('/admin/points-accroches/ajouter', name: 'app_hook_add_admin')]
     public function index(ManagerRegistry $doctrine, Request $request): Response
     {

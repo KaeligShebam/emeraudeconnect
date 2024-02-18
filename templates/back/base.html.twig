@@ -74,9 +74,9 @@
         <li class="submenu">
             <p class="title">Paramètres</p>
             <ul>
-                <li><a href="{{ path('translation_back') }}" {% if app.request.attributes.get('_route') == 'translation_back' %}class="active"{% endif %}>Traduction</a></li>
-                <li><a href="{{ path('app_menu_admin') }}" {% if app.request.attributes.get('_route') == 'app_menu_admin' %}class="active"{% endif %}>Menu</a></li>
-                <li><a href="{{ path('app_hook_admin') }}" {% if app.request.attributes.get('_route') == 'app_hook_admin' %}class="active"{% endif %}>Points d'accroches</a></li>       
+                <li><a href="{{ path('app_module_admin') }}" {% if app.request.attributes.get('_route') == 'app_module_admin' %}class="active"{% endif %}>Modules</a></li>       
+                <li><a href="{{ path('app_hook_admin') }}" {% if app.request.attributes.get('_route') == 'app_hook_admin' %}class="active"{% endif %}>Points d'accroches</a></li>
+                <li><a href="{{ path('translation_back') }}" {% if app.request.attributes.get('_route') == 'translation_back' %}class="active"{% endif %}>Traduction</a></li>      
             </ul>
         </li>
     </ul>

@@ -87,37 +87,51 @@ section{margin: 50px;}
 .menu-list {list-style: none;margin: 0;padding: 0;}
 .checkbox-container {display: flex;align-items: center;}
 
-.page-checkbox {appearance: none;width: 17px;height: 17px;border: 2px solid var(--color-green-light);border-radius: 5px;outline: none;
-  position: relative;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 0 10px 5px 0;
-}
-
-.page-checkbox:checked {
-  background-color: var(--color-green-dark);
-  border-color: var(--color-green-dark);
-}
+.page-checkbox {appearance: none;width: 17px;height: 17px;border: 2px solid var(--color-green-light);border-radius: 5px;outline: none;position: relative;cursor: pointer;transition: background-color 0.3s;margin: 0 10px 5px 0;}
+.page-checkbox:checked {background-color: var(--color-green-dark);border-color: var(--color-green-dark);}
 .checkbox-container .label{margin-top: -8px !important;}
-.checkmark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-  border: 2px solid #fff;
-  border-top: none;
-  border-right: none;
-  transform-origin: bottom right;
-  transition: transform 0.3s;
-  display: none;
-}
+.checkmark {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width: 16px;height: 16px;border-radius: 3px;border: 2px solid #fff;border-top: none;border-right: none;transform-origin: bottom right;transition: transform 0.3s;display: none;}
 
-.page-checkbox:checked + .checkmark {
-  transform: translate(-50%, -50%) rotate(-45deg);
-  display: block;
-}
-
+.page-checkbox:checked + .checkmark {transform: translate(-50%, -50%) rotate(-45deg);display: block;}
 .menu-list li {margin-bottom: 10px;}
+
+.row {
+  display: flex;
+  justify-content: flex-start; /* Pour espacer les colonnes */
+}
+
+.col {
+  flex: 1; /* Pour que les colonnes occupent un espace égal */
+  margin: 0 10px; /* Marge sur les côtés des colonnes */
+}
+select {
+  margin-top: 15px;
+  width: 100%; /* Largeur de 100% de la colonne */
+  padding: 8px; /* Rembourrage autour du texte */
+  font-size: 1rem; /* Taille de police */
+  border: 1px solid #ccc; /* Bordure grise */
+  border-radius: 5px; /* Coins arrondis */
+  background-color: #fff; /* Fond blanc */
+  box-sizing: border-box; /* Boîte de dimensionnement incluant la bordure */
+  -webkit-appearance: none; /* Suppression de l'apparence par défaut sur Chrome */
+  -moz-appearance: none; /* Suppression de l'apparence par défaut sur Firefox */
+  appearance: none; /* Suppression de l'apparence par défaut */
+  cursor: pointer; /* Curseur pointer au survol */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>'); /* Ajouter une flèche */
+  background-repeat: no-repeat; /* Ne pas répéter l'image de fond */
+  background-position: right 8px center; /* Positionner la flèche à droite */
+  padding-right: 24px; /* Ajuster le rembourrage à droite pour laisser de la place à la flèche */
+}
+
+
+
+/* styles.css */
+
+.frame {display: flex;flex-direction: column;border: 1px solid var(--color-white);padding: 20px;align-content: center;}
+.module-info {display: flex;justify-content: space-between;text-align: left !important;}
+.module-info-left {flex-grow: 1;border-right: 1px solid var(--color-white); text-align: left !important;}
+.module-name {color: var(--color-white);font-size: 20px;text-align: left !important;;}
+.module-description, .module-version {color: var(--color-white);text-align: left !important;}
+.module-info-right {margin-left: 20px;}
+
+/* Ajoutez d'autres styles CSS selon vos besoins */

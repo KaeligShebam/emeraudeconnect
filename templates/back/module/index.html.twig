@@ -1,0 +1,25 @@
+{# templates/module/list.html.twig #}
+
+{% extends '/back/base.html.twig' %}
+
+{% block title %}Modules {{ parent() }}{% endblock %}
+{% block pageTitle %}Modules {% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="frame">
+            {% for module in modules %}
+                <div class="module-info">
+                    <div class="module-info-left">
+                        <p class="module-name">{{ module.name }}</p>
+                        <p class="module-description">{{ module.description }}</p>
+                    </div>
+                    <div class="module-info-right">
+                        <p class="module-version">Version: {{ module.version }}</p>
+                        <div class="text-center mt-1"><a href=""><i class="fa-solid fa-eye text-white"></i></a></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endblock %}
+{% endblock %}

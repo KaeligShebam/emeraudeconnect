@@ -1,0 +1,27 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Greffer un hook {{ parent() }}{% endblock %}
+{% block pageTitle %}Greffer un hook {% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="row">
+            <div class="col">
+                <h2>Liste des points d'accroches</h2>
+                <select name="hooks" id="hooks">
+                    {% for hook in hooks %}
+                        <option value="{{ hook.id }}">{{ hook.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col">
+                <h2>Liste des Menus</h2>
+                <select name="pageMenus" id="pageMenus">
+                    {% for pageMenu in pageMenus %}
+                        <option value="{{ pageMenu.id }}">{{ pageMenu.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

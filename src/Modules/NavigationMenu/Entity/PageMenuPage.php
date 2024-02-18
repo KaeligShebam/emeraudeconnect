@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Modules\NavigationMenu\Entity;
 
+use App\Entity\Page;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PageMenuPageRepository;
+use App\Modules\NavigationMenu\Entity\PageMenu;
 
 #[ORM\Entity(repositoryClass: PageMenuPageRepository::class)]
 class PageMenuPage

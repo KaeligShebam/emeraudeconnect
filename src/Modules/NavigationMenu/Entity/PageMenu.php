@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Entity;
+namespace App\Modules\NavigationMenu\Entity;
 
+
+use App\Entity\Page;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PageMenuRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PageMenuRepository::class)]
 class PageMenu
