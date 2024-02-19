@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Back\Setting\Menu;
+namespace App\Modules\NavigationMenu\Controller;
 
 use App\Repository\PageRepository;
-use App\Repository\PageMenuRepository;
+use App\Modules\NavigationMenu\Repository\PageMenuRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Repository\PageMenuPageRepository;
+use App\Modules\NavigationMenu\Repository\PageMenuPageRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

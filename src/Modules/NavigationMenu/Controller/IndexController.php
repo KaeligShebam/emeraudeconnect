@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Back\Setting\Menu;
+namespace App\Modules\NavigationMenu\Controller;
 
 use App\Modules\NavigationMenu\Entity\PageMenu;
 use App\Repository\PageRepository;
 use App\Service\TranslationService;
-use App\Repository\PageMenuRepository;
+use App\Modules\NavigationMenu\Repository\PageMenuRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +22,7 @@ class IndexController extends AbstractController
         $this->translationService = $translationService;
     }
 
-    #[Route('/admin/parametres/menu/{id}', name: 'app_menu_add_pages')]
+    #[Route('/admin/modules/menu-de-navigation/{id}', name: 'app_menu_add_pages')]
     public function addPagesToMenu(int $id, Request $request, PageRepository $pageRepository, ManagerRegistry $doctrine, PageMenuRepository $pageMenuRepository)
     {
         $entityManager = $doctrine->getManager();

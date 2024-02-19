@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Controller\Back\Setting\Menu;
+namespace App\Modules\NavigationMenu\Controller;
 
 use App\Entity\Page;
-use App\Modules\NavigationMenu\Entity\PageMenu;
-use App\Repository\PageRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Form\Back\Setting\Menu\AddMenuType;
 use Symfony\Component\HttpFoundation\Request;
+use App\Modules\NavigationMenu\Entity\PageMenu;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Modules\NavigationMenu\Form\AddMenuType;
 use App\Form\Back\Setting\Menu\AddPagesToMenuType;
-use App\Repository\PageMenuRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Modules\NavigationMenu\Repository\PageRepository;
+use App\Modules\NavigationMenu\Repository\PageMenuRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AddMenuController extends AbstractController
 {
-    #[Route('/admin/parametres/menu/ajouter', name: 'app_menu_add_admin')]
+    #[Route('/admin/modules/menu-de-navigation/ajouter', name: 'app_menu_add_admin')]
     public function createMenu(Request $request, ManagerRegistry $doctrine)
     {
         $pageMenu = new PageMenu();

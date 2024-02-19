@@ -10,12 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomepageController extends AbstractController
 {
     #[Route('/',  name: 'homepage')]
-    public function show(MenuNavigationService $menuNavigationService): Response
+    public function show(): Response
     {
-        $menuItems = $menuNavigationService->getMenuItems();
-        return $this->render('/front/homepage/index.html.twig', [
-            'menuItems' => $menuItems,
-        ]);
+        return $this->render('/front/homepage/index.html.twig');
     }
 
 }

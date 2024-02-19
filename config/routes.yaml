@@ -4,7 +4,31 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+app_menu_admin:
+    path: /admin/modules/menu-de-navigation
+    controller: 'App\Modules\NavigationMenu\Controller\MenuController::index'
+    methods: ['GET']
+
+app_menu_add_admin:
+    path: /admin/modules/menu-de-navigation/ajouter
+    controller: 'App\Modules\NavigationMenu\Controller\AddMenuController::createMenu'
+
+app_menu_add_pages:
+    path: /admin/modules/menu-de-navigation/{id}
+    controller: 'App\Modules\NavigationMenu\Controller\IndexController::addPagesToMenu'
+
+update_page_position:
+    path: /update_page_position
+    controller: 'App\Modules\NavigationMenu\Controller\UpdatePositionPageMenu::updatePagePosition'
+
+update_menu_position:
+    path: /update_menu_position
+    controller: 'App\Modules\NavigationMenu\Controller\UpdateMenuPositionController::updateMenuPositions'
+
 add_pages_to_menu:
-    path: '/add_pages_to_menu/{menuId}'
-    controller: 'App\Controller\Back\Setting\Menu\AddPageOnMenuController::addPagesToMenu'
-    methods: ['POST', 'GET']
+    path: /add_pages_to_menu/{menuId}
+    controller: 'App\Modules\NavigationMenu\Controller\AddPageOnMenuController::addPagesToMenu'
+
+remove_page_from_menu:
+    path: /remove_page_from_menu/{menuId}/{pageId}
+    controller: 'App\Modules\NavigationMenu\Controller\RemovePageFromMenuController::removePageFromMenu'

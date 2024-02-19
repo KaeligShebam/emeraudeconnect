@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Modules\NavigationMenu\Repository;
 
-use App\Entity\PageMenuPage;
+use App\Modules\NavigationMenu\Entity\PageMenuPage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

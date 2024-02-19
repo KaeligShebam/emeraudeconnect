@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Back\Setting\Menu;
+namespace App\Modules\NavigationMenu\Controller;
 
 use App\Modules\NavigationMenu\Entity\PageMenuPage;
 use App\Repository\PageMenuPageRepository;
@@ -25,7 +25,7 @@ class UpdateMenuPositionController extends AbstractController
     }
 
     #[Route('/update-menu-position', name: 'update_menu_position', methods: 'POST')]
-    public function updatePositions(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    public function updateMenuPositions(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         

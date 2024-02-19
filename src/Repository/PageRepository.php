@@ -53,7 +53,7 @@ class PageRepository extends ServiceEntityRepository
     public function findPagesNotInMenu(int $menuId): array
     {
         return $this->createQueryBuilder('p')
-            ->leftJoin('App\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
+            ->leftJoin('App\Modules\NavigationMenu\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
             ->andWhere('pmp.pageMenu != :menuId OR pmp.pageMenu IS NULL')
             ->setParameter('menuId', $menuId)
             ->getQuery()
@@ -63,7 +63,7 @@ class PageRepository extends ServiceEntityRepository
     public function findPagesInMenu(int $menuId): array
     {
         return $this->createQueryBuilder('p')
-            ->join('App\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
+            ->join('App\Modules\NavigationMenu\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
             ->andWhere('pmp.pageMenu = :menuId')
             ->setParameter('menuId', $menuId)
             ->orderBy('pmp.position', 'ASC') // Ordonner par position croissante

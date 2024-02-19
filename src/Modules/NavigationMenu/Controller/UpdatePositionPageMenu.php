@@ -1,11 +1,7 @@
 <?php
 
-namespace App\Controller\Back\Setting\Menu;
+namespace App\Modules\NavigationMenu\Controller;
 
-use App\Entity\PageMenu;
-use App\Repository\PageMenuRepository;
-use App\Repository\PageRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UpdatePositionPageMenu extends AbstractController
 {
-    #[Route('//update_page_position', name: 'update_page_position')]
+    #[Route('/update_page_position', name: 'update_page_position')]
     public function updatePagePosition(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);

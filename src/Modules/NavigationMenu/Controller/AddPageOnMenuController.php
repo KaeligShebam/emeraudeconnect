@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Back\Setting\Menu;
+namespace App\Modules\NavigationMenu\Controller;
 
 use App\Entity\Page;
 use App\Modules\NavigationMenu\Entity\PageMenu;
@@ -24,9 +24,7 @@ class AddPageOnMenuController extends AbstractController
         $this->translationService = $translationService;
     }
 
-    /**
-     * @Route("/add_pages_to_menu/{menuId}", name="add_pages_to_menu", methods={"GET", "POST"})
-     */
+    #[Route('/add_pages_to_menu/{menuId}', name: 'add_pages_to_menu', methods: ['GET', 'POST'])]
     public function addPagesToMenu(Request $request, $menuId): Response
     {
         $data = json_decode($request->getContent(), true);

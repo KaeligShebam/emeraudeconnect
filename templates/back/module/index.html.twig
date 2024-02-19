@@ -1,5 +1,3 @@
-{# templates/module/list.html.twig #}
-
 {% extends '/back/base.html.twig' %}
 
 {% block title %}Modules {{ parent() }}{% endblock %}
@@ -16,7 +14,7 @@
                     </div>
                     <div class="module-info-right">
                         <p class="module-version">Version: {{ module.version }}</p>
-                        <div class="text-center mt-1"><a href=""><i class="fa-solid fa-eye text-white"></i></a></div>
+                        <div class="text-center mt-1"><a href="{{ path('app_menu_admin') }}"><i class="fa-solid fa-eye text-white"></i></a></div>
                     </div>
                 </div>
             {% endfor %}
