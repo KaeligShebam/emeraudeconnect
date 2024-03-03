@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\HookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HookRepository;
+use App\Modules\NavigationMenu\Entity\NavigationMenu;
 
 #[ORM\Entity(repositoryClass: HookRepository::class)]
 class Hook
@@ -18,6 +19,9 @@ class Hook
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\OneToOne(mappedBy: 'hook')]
+    private ?NavigationMenu $navigationMenu = null;
 
     public function getId(): ?int
     {
@@ -47,4 +51,16 @@ class Hook
 
         return $this;
     }
+
+        public function getNavigationMenu(): ?NavigationMenu
+        {
+            return $this->navigationMenu;
+        }
+    
+        public function setNavigationMenu(?NavigationMenu $navigationMenu): self
+        {
+            $this->navigationMenu = $navigationMenu;
+    
+            return $this;
+        }
 }

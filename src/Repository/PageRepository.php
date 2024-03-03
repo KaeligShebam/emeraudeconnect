@@ -54,7 +54,7 @@ class PageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('App\Modules\NavigationMenu\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
-            ->andWhere('pmp.pageMenu != :menuId OR pmp.pageMenu IS NULL')
+            ->andWhere('pmp.navigationMenu != :menuId OR pmp.navigationMenu IS NULL')
             ->setParameter('menuId', $menuId)
             ->getQuery()
             ->getResult();
@@ -64,7 +64,7 @@ class PageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->join('App\Modules\NavigationMenu\Entity\PageMenuPage', 'pmp', 'WITH', 'pmp.page = p.id')
-            ->andWhere('pmp.pageMenu = :menuId')
+            ->andWhere('pmp.navigationMenu = :menuId')
             ->setParameter('menuId', $menuId)
             ->orderBy('pmp.position', 'ASC') // Ordonner par position croissante
             ->getQuery()

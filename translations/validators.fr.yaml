@@ -12,6 +12,7 @@ Boutons:
     btn_sitemap_page: 'Voir le sitemap'
     btn_add_pages: 'Ajouter des pages'
     no_page_selected: 'Aucune page selectionnée'
+    btn_save: Enregistrer
 Pages:
     success_add_page: 'La page a bien été ajoutée !'
     success_edit_page: 'La page a été mise à jour !'

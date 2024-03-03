@@ -1,7 +1,7 @@
-# config/packages/twig.yaml
 twig:
     default_path: '%kernel.project_dir%/templates'
     paths:
         '%kernel.project_dir%/templates': templates
+        '%kernel.project_dir%/src/Modules/NavigationMenu/Templates': NavigationMenu
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'

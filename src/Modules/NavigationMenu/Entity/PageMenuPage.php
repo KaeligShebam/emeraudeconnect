@@ -4,7 +4,7 @@ namespace App\Modules\NavigationMenu\Entity;
 
 use App\Entity\Page;
 use Doctrine\ORM\Mapping as ORM;
-use App\Modules\NavigationMenu\Entity\PageMenu;
+use App\Modules\NavigationMenu\Entity\NavigationMenu;
 use App\Modules\NavigationMenu\Repository\PageMenuPageRepository;
 
 #[ORM\Entity(repositoryClass: PageMenuPageRepository::class)]
@@ -15,9 +15,9 @@ class PageMenuPage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: PageMenu::class)]
+    #[ORM\ManyToOne(targetEntity: NavigationMenu::class, inversedBy: 'pages')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?PageMenu $pageMenu = null;
+    private ?NavigationMenu $navigationMenu = null;
     
     #[ORM\ManyToOne(targetEntity: Page::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -31,14 +31,14 @@ class PageMenuPage
         return $this->id;
     }
 
-    public function getPageMenu(): ?PageMenu
+    public function getNavigationMenu(): ?NavigationMenu
     {
-        return $this->pageMenu;
+        return $this->navigationMenu;
     }
 
-    public function setPageMenu(?PageMenu $pageMenu): self
+    public function setNavigationMenu(?NavigationMenu $navigationMenu): self
     {
-        $this->pageMenu = $pageMenu;
+        $this->navigationMenu = $navigationMenu;
 
         return $this;
     }
@@ -47,6 +47,7 @@ class PageMenuPage
     {
         return $this->page;
     }
+    
     public function setPage(?Page $page): self
     {
         $this->page = $page;
@@ -65,6 +66,7 @@ class PageMenuPage
 
         return $this;
     }
+    
     public function removePage(Page $page): self
     {
         if ($this->getPage() === $page) {
@@ -74,3 +76,4 @@ class PageMenuPage
         return $this;
     }
 }
+

@@ -4,7 +4,7 @@ namespace App\Modules\NavigationMenu\Form;
 
 use App\Entity\Page;
 use Symfony\Component\Form\AbstractType;
-use App\Modules\NavigationMenu\Entity\PageMenu;
+use App\Modules\NavigationMenu\Entity\NavigationMenu;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,7 +34,7 @@ class AddPagesToMenuType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PageMenu::class,
+            'data_class' => NavigationMenu::class,
         ]);
     }
 }

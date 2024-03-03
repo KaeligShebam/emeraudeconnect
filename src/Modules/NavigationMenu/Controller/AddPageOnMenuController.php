@@ -3,7 +3,7 @@
 namespace App\Modules\NavigationMenu\Controller;
 
 use App\Entity\Page;
-use App\Modules\NavigationMenu\Entity\PageMenu;
+use App\Modules\NavigationMenu\Entity\NavigationMenu;
 use App\Modules\NavigationMenu\Entity\PageMenuPage;
 use App\Service\TranslationService;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,18 +41,18 @@ class AddPageOnMenuController extends AbstractController
         }
 
         $entityManager = $this->doctrine->getManager();
-        $menu = $entityManager->getRepository(PageMenu::class)->find($menuId);
+        $menu = $entityManager->getRepository(NavigationMenu::class)->find($menuId);
 
         if (!$menu) {
             return new Response('Menu not found', Response::HTTP_NOT_FOUND);
         }
         
         // Vérifiez si la collection de pages est null
-        $pagesMenu = $menu->getPages();
-        if ($pagesMenu === null) {
+        $navigationMenus = $menu->getPages();
+        if ($navigationMenus === null) {
             // Si la collection est null, initialisez-la avec une nouvelle collection
             $menu->setPages(new ArrayCollection());
-            $pagesMenu = $menu->getPages();
+            $navigationMenus = $menu->getPages();
         }
 
         $pageIds = $data['pageIds'];
@@ -72,7 +72,7 @@ class AddPageOnMenuController extends AbstractController
             
             // Créez une nouvelle entité PageMenuPage pour représenter la relation
             $pageMenuPage = new PageMenuPage();
-            $pageMenuPage->setPageMenu($menu);
+            $pageMenuPage->setNavigationMenu($menu);
             $pageMenuPage->setPage($page);
             $entityManager->persist($pageMenuPage);
         }

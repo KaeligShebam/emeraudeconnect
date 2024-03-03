@@ -44,10 +44,54 @@
                     {% endfor %}
                 </ul>
             </div>
-        </div>
+            <div class="pages-list-added">
+                <h2 class="mb-4">Points d'accroche</h2>
+                <form id="your_form_id" method="post" action="{{ path('app_menu_assign_hook', { 'id': app.request.attributes.get('id') }) }}">
+                    <select name="hook_select" id="hook_select" data-menu-id="{{ app.request.attributes.get('id') }}">
+                        {% for hook in unusedHooks %}
+                            {% if menu.hook is not null and hook == menu.hook.name %}
+                                <option value="{{ hook }}" disabled selected>{{ hook }} (déjà assigné à ce menu)</option>
+                            {% else %}
+                                <option value="{{ hook }}">{{ hook }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    
+                    {% if menu.hook is null %}
+                        <button class="form-button" type="submit" id="submit_button">{{ btn_save }}</button>
+                    {% endif %}
+                </form>
 
+            </div>
+        </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var hookSelect = document.getElementById('hook_select');
+                var currentUrl = window.location.href;
+                var urlParams = new URLSearchParams(currentUrl);
+                var id = urlParams.get('id');
+
+                hookSelect.addEventListener('change', function() {
+                    var selectedHook = this.value;
+
+                    // Envoyer une requête AJAX pour mettre à jour le hook
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/admin/modules/menu-de-navigation/' + id + '/assigner-hook', true); // Utiliser l'ID actuel dans l'URL
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // Gérer la réponse de la requête
+                            var response = xhr.responseText;
+                            console.log(response); // Afficher la réponse dans la console
+                        }
+                    };
+                    xhr.send('hook=' + selectedHook);
+                });
+            });
+        </script>
 
         <script>
             $(function () {

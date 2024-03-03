@@ -4,7 +4,6 @@ controllers:
         namespace: App\Controller
     type: attribute
     
-
 kernel:
     resource: App\Kernel
     type: attribute

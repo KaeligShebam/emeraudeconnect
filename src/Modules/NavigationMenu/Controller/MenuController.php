@@ -2,7 +2,7 @@
 
 namespace App\Modules\NavigationMenu\Controller;
 
-use App\Modules\NavigationMenu\Repository\PageMenuRepository;
+use App\Modules\NavigationMenu\Repository\NavigationMenuRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,19 +10,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MenuController extends AbstractController
 {
 
-    private $pageMenuRepository;
+    private $navigationMenuRepository;
 
-    public function __construct(PageMenuRepository $pageMenuRepository)
+    public function __construct(NavigationMenuRepository $navigationMenuRepository)
     {
-        $this->pageMenuRepository = $pageMenuRepository;
+        $this->navigationMenuRepository = $navigationMenuRepository;
     }
 
     #[Route('/admin/modules/menu-de-navigation', name: 'app_menu_admin')]
-    public function index(PageMenuRepository $pageMenuRepository): Response
+    public function index(NavigationMenuRepository $navigationMenuRepository): Response
     {
-        $menus = $pageMenuRepository->findAll();
+        $menus = $navigationMenuRepository->findAll();
 
-        return $this->render('back/setting/menu/index.html.twig', [
+        return $this->render('@NavigationMenu/index.html.twig', [
             'menus' => $menus,
         ]);
     }

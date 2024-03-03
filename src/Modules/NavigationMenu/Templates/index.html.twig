@@ -28,14 +28,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="pages-list-added">
-            <h2 class="mb-4">Menu de navigation</h2>
-            {% for menu in menus %}
-                <input type="checkbox" data-menu-id="{{ menu.id }}">
-                <label>{{ menu.name }}</label>
-                <br>
-            {% endfor %}
-        </div>
         
     {% else %}
         <p>Pas de menu créé</p>

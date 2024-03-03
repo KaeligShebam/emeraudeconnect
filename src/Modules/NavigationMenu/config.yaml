@@ -1,3 +1,5 @@
 module_name: "Menu de navigation"
 module_description: "Créez vos menus de navigation tel que vous le souhaitez. Affichez les dans le menu principal ou dans le footer."
 module_version: "1.0"
+hook_name: 'navigation_menu_header'
+hook_description: 'Ce hook servira pour attribuer le menu navigation au header principal du site internet'

@@ -32,3 +32,7 @@ add_pages_to_menu:
 remove_page_from_menu:
     path: /remove_page_from_menu/{menuId}/{pageId}
     controller: 'App\Modules\NavigationMenu\Controller\RemovePageFromMenuController::removePageFromMenu'
+
+app_menu_assign_hook:
+    path: /admin/modules/menu-de-navigation/assigner-hook/{id}
+    controller: 'App\Modules\NavigationMenu\Controller\AssignHookToMenuController::assignHookToMenu'

@@ -3,14 +3,15 @@
 namespace App\Modules\NavigationMenu\Entity;
 
 
+use App\Entity\Hook;
 use App\Entity\Page;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Modules\NavigationMenu\Repository\PageMenuRepository;
+use App\Modules\NavigationMenu\Repository\NavigationMenuRepository;
 
-#[ORM\Entity(repositoryClass: PageMenuRepository::class)]
-class PageMenu
+#[ORM\Entity(repositoryClass: NavigationMenuRepository::class)]
+class NavigationMenu
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,6 +29,9 @@ class PageMenu
      *      )
      */
     private $pages;
+
+    #[ORM\OneToOne(targetEntity: Hook::class)]
+    private ?Hook $hook = null;
 
     public function __construct()
     {
@@ -84,5 +88,18 @@ class PageMenu
         }
         
         return $this;
-    } 
+    }
+
+    public function getHook(): ?Hook
+    {
+        return $this->hook;
+    }
+
+    public function setHook(?Hook $hook): self
+    {
+        $this->hook = $hook;
+
+        return $this;
+    }
+
 }

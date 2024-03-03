@@ -12,7 +12,16 @@ services:
             $parameterBag: '@parameter_bag'
     Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver:
         tags: ['controller.argument_value_resolver']
-
+    App\EventListener\ModuleDiscoveryListener:
+        arguments:
+            $params: '@parameter_bag'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+    App\Twig\AppExtension:
+        arguments:
+            $hookRepository: '@App\Repository\HookRepository'
+        tags:
+            - { name: twig.extension }
 
     # default configuration for services in *this* file
     _defaults:
